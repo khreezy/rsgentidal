@@ -208,124 +208,125 @@ pub trait Api {
     fn videos_api(&self) -> &dyn videos_api::VideosApi;
 }
 
+#[derive(Clone)]
 pub struct ApiClient {
-    albums_api: Box<dyn albums_api::AlbumsApi>,
-    appreciations_api: Box<dyn appreciations_api::AppreciationsApi>,
-    artist_biographies_api: Box<dyn artist_biographies_api::ArtistBiographiesApi>,
-    artist_claims_api: Box<dyn artist_claims_api::ArtistClaimsApi>,
-    artist_roles_api: Box<dyn artist_roles_api::ArtistRolesApi>,
-    artists_api: Box<dyn artists_api::ArtistsApi>,
-    artworks_api: Box<dyn artworks_api::ArtworksApi>,
-    dynamic_pages_api: Box<dyn dynamic_pages_api::DynamicPagesApi>,
-    genres_api: Box<dyn genres_api::GenresApi>,
-    lyrics_api: Box<dyn lyrics_api::LyricsApi>,
-    manual_artist_claims_api: Box<dyn manual_artist_claims_api::ManualArtistClaimsApi>,
-    play_queues_api: Box<dyn play_queues_api::PlayQueuesApi>,
-    playlists_api: Box<dyn playlists_api::PlaylistsApi>,
-    providers_api: Box<dyn providers_api::ProvidersApi>,
-    reactions_api: Box<dyn reactions_api::ReactionsApi>,
-    saved_shares_api: Box<dyn saved_shares_api::SavedSharesApi>,
-    search_results_api: Box<dyn search_results_api::SearchResultsApi>,
-    search_suggestions_api: Box<dyn search_suggestions_api::SearchSuggestionsApi>,
-    shares_api: Box<dyn shares_api::SharesApi>,
-    stripe_connections_api: Box<dyn stripe_connections_api::StripeConnectionsApi>,
-    track_files_api: Box<dyn track_files_api::TrackFilesApi>,
-    track_manifests_api: Box<dyn track_manifests_api::TrackManifestsApi>,
-    track_source_files_api: Box<dyn track_source_files_api::TrackSourceFilesApi>,
-    track_statistics_api: Box<dyn track_statistics_api::TrackStatisticsApi>,
-    tracks_api: Box<dyn tracks_api::TracksApi>,
-    user_collection_folders_api: Box<dyn user_collection_folders_api::UserCollectionFoldersApi>,
-    user_collections_api: Box<dyn user_collections_api::UserCollectionsApi>,
-    user_entitlements_api: Box<dyn user_entitlements_api::UserEntitlementsApi>,
-    user_recommendations_api: Box<dyn user_recommendations_api::UserRecommendationsApi>,
-    user_reports_api: Box<dyn user_reports_api::UserReportsApi>,
-    users_api: Box<dyn users_api::UsersApi>,
-    videos_api: Box<dyn videos_api::VideosApi>,
+    albums_api: Arc<dyn albums_api::AlbumsApi>,
+    appreciations_api: Arc<dyn appreciations_api::AppreciationsApi>,
+    artist_biographies_api: Arc<dyn artist_biographies_api::ArtistBiographiesApi>,
+    artist_claims_api: Arc<dyn artist_claims_api::ArtistClaimsApi>,
+    artist_roles_api: Arc<dyn artist_roles_api::ArtistRolesApi>,
+    artists_api: Arc<dyn artists_api::ArtistsApi>,
+    artworks_api: Arc<dyn artworks_api::ArtworksApi>,
+    dynamic_pages_api: Arc<dyn dynamic_pages_api::DynamicPagesApi>,
+    genres_api: Arc<dyn genres_api::GenresApi>,
+    lyrics_api: Arc<dyn lyrics_api::LyricsApi>,
+    manual_artist_claims_api: Arc<dyn manual_artist_claims_api::ManualArtistClaimsApi>,
+    play_queues_api: Arc<dyn play_queues_api::PlayQueuesApi>,
+    playlists_api: Arc<dyn playlists_api::PlaylistsApi>,
+    providers_api: Arc<dyn providers_api::ProvidersApi>,
+    reactions_api: Arc<dyn reactions_api::ReactionsApi>,
+    saved_shares_api: Arc<dyn saved_shares_api::SavedSharesApi>,
+    search_results_api: Arc<dyn search_results_api::SearchResultsApi>,
+    search_suggestions_api: Arc<dyn search_suggestions_api::SearchSuggestionsApi>,
+    shares_api: Arc<dyn shares_api::SharesApi>,
+    stripe_connections_api: Arc<dyn stripe_connections_api::StripeConnectionsApi>,
+    track_files_api: Arc<dyn track_files_api::TrackFilesApi>,
+    track_manifests_api: Arc<dyn track_manifests_api::TrackManifestsApi>,
+    track_source_files_api: Arc<dyn track_source_files_api::TrackSourceFilesApi>,
+    track_statistics_api: Arc<dyn track_statistics_api::TrackStatisticsApi>,
+    tracks_api: Arc<dyn tracks_api::TracksApi>,
+    user_collection_folders_api: Arc<dyn user_collection_folders_api::UserCollectionFoldersApi>,
+    user_collections_api: Arc<dyn user_collections_api::UserCollectionsApi>,
+    user_entitlements_api: Arc<dyn user_entitlements_api::UserEntitlementsApi>,
+    user_recommendations_api: Arc<dyn user_recommendations_api::UserRecommendationsApi>,
+    user_reports_api: Arc<dyn user_reports_api::UserReportsApi>,
+    users_api: Arc<dyn users_api::UsersApi>,
+    videos_api: Arc<dyn videos_api::VideosApi>,
 }
 
 impl ApiClient {
     pub fn new(configuration: Arc<configuration::Configuration>) -> Self {
         Self {
-            albums_api: Box::new(albums_api::AlbumsApiClient::new(configuration.clone())),
-            appreciations_api: Box::new(appreciations_api::AppreciationsApiClient::new(
+            albums_api: Arc::new(albums_api::AlbumsApiClient::new(configuration.clone())),
+            appreciations_api: Arc::new(appreciations_api::AppreciationsApiClient::new(
                 configuration.clone(),
             )),
-            artist_biographies_api: Box::new(
+            artist_biographies_api: Arc::new(
                 artist_biographies_api::ArtistBiographiesApiClient::new(configuration.clone()),
             ),
-            artist_claims_api: Box::new(artist_claims_api::ArtistClaimsApiClient::new(
+            artist_claims_api: Arc::new(artist_claims_api::ArtistClaimsApiClient::new(
                 configuration.clone(),
             )),
-            artist_roles_api: Box::new(artist_roles_api::ArtistRolesApiClient::new(
+            artist_roles_api: Arc::new(artist_roles_api::ArtistRolesApiClient::new(
                 configuration.clone(),
             )),
-            artists_api: Box::new(artists_api::ArtistsApiClient::new(configuration.clone())),
-            artworks_api: Box::new(artworks_api::ArtworksApiClient::new(configuration.clone())),
-            dynamic_pages_api: Box::new(dynamic_pages_api::DynamicPagesApiClient::new(
+            artists_api: Arc::new(artists_api::ArtistsApiClient::new(configuration.clone())),
+            artworks_api: Arc::new(artworks_api::ArtworksApiClient::new(configuration.clone())),
+            dynamic_pages_api: Arc::new(dynamic_pages_api::DynamicPagesApiClient::new(
                 configuration.clone(),
             )),
-            genres_api: Box::new(genres_api::GenresApiClient::new(configuration.clone())),
-            lyrics_api: Box::new(lyrics_api::LyricsApiClient::new(configuration.clone())),
-            manual_artist_claims_api: Box::new(
+            genres_api: Arc::new(genres_api::GenresApiClient::new(configuration.clone())),
+            lyrics_api: Arc::new(lyrics_api::LyricsApiClient::new(configuration.clone())),
+            manual_artist_claims_api: Arc::new(
                 manual_artist_claims_api::ManualArtistClaimsApiClient::new(configuration.clone()),
             ),
-            play_queues_api: Box::new(play_queues_api::PlayQueuesApiClient::new(
+            play_queues_api: Arc::new(play_queues_api::PlayQueuesApiClient::new(
                 configuration.clone(),
             )),
-            playlists_api: Box::new(playlists_api::PlaylistsApiClient::new(
+            playlists_api: Arc::new(playlists_api::PlaylistsApiClient::new(
                 configuration.clone(),
             )),
-            providers_api: Box::new(providers_api::ProvidersApiClient::new(
+            providers_api: Arc::new(providers_api::ProvidersApiClient::new(
                 configuration.clone(),
             )),
-            reactions_api: Box::new(reactions_api::ReactionsApiClient::new(
+            reactions_api: Arc::new(reactions_api::ReactionsApiClient::new(
                 configuration.clone(),
             )),
-            saved_shares_api: Box::new(saved_shares_api::SavedSharesApiClient::new(
+            saved_shares_api: Arc::new(saved_shares_api::SavedSharesApiClient::new(
                 configuration.clone(),
             )),
-            search_results_api: Box::new(search_results_api::SearchResultsApiClient::new(
+            search_results_api: Arc::new(search_results_api::SearchResultsApiClient::new(
                 configuration.clone(),
             )),
-            search_suggestions_api: Box::new(
+            search_suggestions_api: Arc::new(
                 search_suggestions_api::SearchSuggestionsApiClient::new(configuration.clone()),
             ),
-            shares_api: Box::new(shares_api::SharesApiClient::new(configuration.clone())),
-            stripe_connections_api: Box::new(
+            shares_api: Arc::new(shares_api::SharesApiClient::new(configuration.clone())),
+            stripe_connections_api: Arc::new(
                 stripe_connections_api::StripeConnectionsApiClient::new(configuration.clone()),
             ),
-            track_files_api: Box::new(track_files_api::TrackFilesApiClient::new(
+            track_files_api: Arc::new(track_files_api::TrackFilesApiClient::new(
                 configuration.clone(),
             )),
-            track_manifests_api: Box::new(track_manifests_api::TrackManifestsApiClient::new(
+            track_manifests_api: Arc::new(track_manifests_api::TrackManifestsApiClient::new(
                 configuration.clone(),
             )),
-            track_source_files_api: Box::new(
+            track_source_files_api: Arc::new(
                 track_source_files_api::TrackSourceFilesApiClient::new(configuration.clone()),
             ),
-            track_statistics_api: Box::new(track_statistics_api::TrackStatisticsApiClient::new(
+            track_statistics_api: Arc::new(track_statistics_api::TrackStatisticsApiClient::new(
                 configuration.clone(),
             )),
-            tracks_api: Box::new(tracks_api::TracksApiClient::new(configuration.clone())),
-            user_collection_folders_api: Box::new(
+            tracks_api: Arc::new(tracks_api::TracksApiClient::new(configuration.clone())),
+            user_collection_folders_api: Arc::new(
                 user_collection_folders_api::UserCollectionFoldersApiClient::new(
                     configuration.clone(),
                 ),
             ),
-            user_collections_api: Box::new(user_collections_api::UserCollectionsApiClient::new(
+            user_collections_api: Arc::new(user_collections_api::UserCollectionsApiClient::new(
                 configuration.clone(),
             )),
-            user_entitlements_api: Box::new(user_entitlements_api::UserEntitlementsApiClient::new(
+            user_entitlements_api: Arc::new(user_entitlements_api::UserEntitlementsApiClient::new(
                 configuration.clone(),
             )),
-            user_recommendations_api: Box::new(
+            user_recommendations_api: Arc::new(
                 user_recommendations_api::UserRecommendationsApiClient::new(configuration.clone()),
             ),
-            user_reports_api: Box::new(user_reports_api::UserReportsApiClient::new(
+            user_reports_api: Arc::new(user_reports_api::UserReportsApiClient::new(
                 configuration.clone(),
             )),
-            users_api: Box::new(users_api::UsersApiClient::new(configuration.clone())),
-            videos_api: Box::new(videos_api::VideosApiClient::new(configuration.clone())),
+            users_api: Arc::new(users_api::UsersApiClient::new(configuration.clone())),
+            videos_api: Arc::new(videos_api::VideosApiClient::new(configuration.clone())),
         }
     }
 }
