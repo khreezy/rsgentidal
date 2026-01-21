@@ -43,7 +43,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_statistic_owners
 
-> models::TrackStatisticsMultiRelationshipDataDocument get_track_statistic_owners(id, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::TrackStatisticsMultiRelationshipDataDocument get_track_statistic_owners(id, include, page_cursor)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -55,7 +55,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track statistic id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -102,4 +102,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

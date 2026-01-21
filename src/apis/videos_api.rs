@@ -31,17 +31,10 @@ pub trait VideosApi: Send + Sync {
     /// GET /videos/{id}/relationships/albums
     ///
     /// Retrieves albums relationship.
-    async fn get_video_albums<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_albums<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoAlbumsError>>;
@@ -49,17 +42,10 @@ pub trait VideosApi: Send + Sync {
     /// GET /videos/{id}/relationships/artists
     ///
     /// Retrieves artists relationship.
-    async fn get_video_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_artists<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoArtistsError>>;
@@ -67,17 +53,10 @@ pub trait VideosApi: Send + Sync {
     /// GET /videos/{id}/relationships/providers
     ///
     /// Retrieves providers relationship.
-    async fn get_video_providers<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_providers<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoProvidersError>>;
@@ -98,17 +77,10 @@ pub trait VideosApi: Send + Sync {
     /// GET /videos/{id}/relationships/thumbnailArt
     ///
     /// Retrieves thumbnailArt relationship.
-    async fn get_video_thumbnail_art<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_thumbnail_art<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoThumbnailArtError>>;
@@ -227,17 +199,10 @@ impl VideosApi for VideosApiClient {
     }
 
     /// Retrieves albums relationship.
-    async fn get_video_albums<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_albums<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoAlbumsError>> {
@@ -253,7 +218,7 @@ impl VideosApi for VideosApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -322,17 +287,10 @@ impl VideosApi for VideosApiClient {
     }
 
     /// Retrieves artists relationship.
-    async fn get_video_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_artists<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoArtistsError>> {
@@ -348,7 +306,7 @@ impl VideosApi for VideosApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -417,17 +375,10 @@ impl VideosApi for VideosApiClient {
     }
 
     /// Retrieves providers relationship.
-    async fn get_video_providers<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_providers<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoProvidersError>> {
@@ -443,7 +394,7 @@ impl VideosApi for VideosApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -598,17 +549,10 @@ impl VideosApi for VideosApiClient {
     }
 
     /// Retrieves thumbnailArt relationship.
-    async fn get_video_thumbnail_art<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_video_thumbnail_art<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::VideosMultiRelationshipDataDocument, Error<GetVideoThumbnailArtError>> {
@@ -624,7 +568,7 @@ impl VideosApi for VideosApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

@@ -182,7 +182,7 @@ pub trait UserCollectionsApi: Send + Sync {
     /// Retrieves albums relationship.
     async fn get_user_collection_albums<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -190,9 +190,7 @@ pub trait UserCollectionsApi: Send + Sync {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -207,7 +205,7 @@ pub trait UserCollectionsApi: Send + Sync {
     /// Retrieves artists relationship.
     async fn get_user_collection_artists<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -215,9 +213,7 @@ pub trait UserCollectionsApi: Send + Sync {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -230,17 +226,11 @@ pub trait UserCollectionsApi: Send + Sync {
     /// GET /userCollections/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_user_collection_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_user_collection_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::UserCollectionsMultiRelationshipDataDocument,
         Error<GetUserCollectionOwnersError>,
@@ -249,19 +239,11 @@ pub trait UserCollectionsApi: Send + Sync {
     /// GET /userCollections/{id}/relationships/playlists
     ///
     /// Retrieves playlists relationship.
-    async fn get_user_collection_playlists<
-        'id,
-        'collection_view,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'sort,
-        'include,
-    >(
+    async fn get_user_collection_playlists<'id, 'collection_view, 'page_cursor, 'sort, 'include>(
         &self,
         id: &'id str,
         collection_view: Option<&'collection_view str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -274,7 +256,7 @@ pub trait UserCollectionsApi: Send + Sync {
     /// Retrieves tracks relationship.
     async fn get_user_collection_tracks<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -282,9 +264,7 @@ pub trait UserCollectionsApi: Send + Sync {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -299,7 +279,7 @@ pub trait UserCollectionsApi: Send + Sync {
     /// Retrieves videos relationship.
     async fn get_user_collection_videos<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -307,9 +287,7 @@ pub trait UserCollectionsApi: Send + Sync {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -976,7 +954,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     /// Retrieves albums relationship.
     async fn get_user_collection_albums<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -984,9 +962,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -1007,7 +983,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1098,7 +1074,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     /// Retrieves artists relationship.
     async fn get_user_collection_artists<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -1106,9 +1082,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -1129,7 +1103,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1218,17 +1192,11 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_user_collection_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_user_collection_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::UserCollectionsMultiRelationshipDataDocument,
         Error<GetUserCollectionOwnersError>,
@@ -1264,7 +1232,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1307,19 +1275,11 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     }
 
     /// Retrieves playlists relationship.
-    async fn get_user_collection_playlists<
-        'id,
-        'collection_view,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'sort,
-        'include,
-    >(
+    async fn get_user_collection_playlists<'id, 'collection_view, 'page_cursor, 'sort, 'include>(
         &self,
         id: &'id str,
         collection_view: Option<&'collection_view str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -1342,7 +1302,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("collectionView", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1425,7 +1385,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     /// Retrieves tracks relationship.
     async fn get_user_collection_tracks<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -1433,9 +1393,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -1456,7 +1414,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1547,7 +1505,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     /// Retrieves videos relationship.
     async fn get_user_collection_videos<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'locale,
@@ -1555,9 +1513,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
@@ -1578,7 +1534,7 @@ impl UserCollectionsApi for UserCollectionsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

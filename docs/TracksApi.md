@@ -120,7 +120,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_albums
 
-> models::TracksMultiRelationshipDataDocument get_track_albums(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_albums(id, country_code, include, page_cursor, share_code)
 Get albums relationship (\"to-many\").
 
 Retrieves albums relationship.
@@ -133,7 +133,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Track id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: albums |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -154,7 +154,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_genres
 
-> models::TracksMultiRelationshipDataDocument get_track_genres(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_genres(id, country_code, include, page_cursor, share_code)
 Get genres relationship (\"to-many\").
 
 Retrieves genres relationship.
@@ -167,7 +167,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Track id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: genres |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -188,7 +188,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_lyrics
 
-> models::TracksMultiRelationshipDataDocument get_track_lyrics(id, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_lyrics(id, include, page_cursor, share_code)
 Get lyrics relationship (\"to-many\").
 
 Retrieves lyrics relationship.
@@ -200,7 +200,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: lyrics |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -221,7 +221,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_owners
 
-> models::TracksMultiRelationshipDataDocument get_track_owners(id, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_owners(id, include, page_cursor, share_code)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -233,7 +233,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -254,7 +254,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_providers
 
-> models::TracksMultiRelationshipDataDocument get_track_providers(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_providers(id, country_code, include, page_cursor, share_code)
 Get providers relationship (\"to-many\").
 
 Retrieves providers relationship.
@@ -267,7 +267,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Track id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: providers |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -288,7 +288,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_radio
 
-> models::TracksMultiRelationshipDataDocument get_track_radio(id, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_radio(id, include, page_cursor, share_code)
 Get radio relationship (\"to-many\").
 
 Retrieves radio relationship.
@@ -300,7 +300,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: radio |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -354,7 +354,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_shares
 
-> models::TracksMultiRelationshipDataDocument get_track_shares(id, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_shares(id, include, page_cursor, share_code)
 Get shares relationship (\"to-many\").
 
 Retrieves shares relationship.
@@ -366,7 +366,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: shares |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -387,7 +387,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_track_similar_tracks
 
-> models::TracksMultiRelationshipDataDocument get_track_similar_tracks(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::TracksMultiRelationshipDataDocument get_track_similar_tracks(id, page_cursor, country_code, include, share_code)
 Get similarTracks relationship (\"to-many\").
 
 Retrieves similarTracks relationship.
@@ -398,7 +398,7 @@ Retrieves similarTracks relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: similarTracks |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -485,7 +485,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tracks
 
-> models::TracksMultiResourceDataDocument get_tracks(page_left_square_bracket_cursor_right_square_bracket, country_code, include, filter_left_square_bracket_id_right_square_bracket, filter_left_square_bracket_isrc_right_square_bracket, filter_left_square_bracket_owners_id_right_square_bracket, share_code)
+> models::TracksMultiResourceDataDocument get_tracks(page_cursor, country_code, include, filter_left_square_bracket_id_right_square_bracket, filter_left_square_bracket_isrc_right_square_bracket, filter_left_square_bracket_owners_id_right_square_bracket, share_code)
 Get multiple tracks.
 
 Retrieves multiple tracks by available filters, or without if applicable.
@@ -495,7 +495,7 @@ Retrieves multiple tracks by available filters, or without if applicable.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: albums, artists, genres, lyrics, owners, providers, radio, replacement, shares, similarTracks, sourceFile, trackStatistics |  |
 **filter_left_square_bracket_id_right_square_bracket** | Option<[**Vec<String>**](String.md)> | Track id |  |
@@ -583,7 +583,7 @@ Name | Type | Description  | Required | Notes
 
 ## patch_track_artists
 
-> models::TracksMultiRelationshipDataDocument patch_track_artists(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::TracksMultiRelationshipDataDocument patch_track_artists(id, page_cursor, country_code, include, share_code)
 Get artists relationship (\"to-many\").
 
 Retrieves artists relationship.
@@ -594,7 +594,7 @@ Retrieves artists relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Track id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: artists |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -613,4 +613,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

@@ -171,7 +171,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_folder_items
 
-> models::UserCollectionFoldersItemsMultiRelationshipDataDocument get_user_collection_folder_items(id, page_left_square_bracket_cursor_right_square_bracket, sort, include)
+> models::UserCollectionFoldersItemsMultiRelationshipDataDocument get_user_collection_folder_items(id, page_cursor, sort, include)
 Get items relationship (\"to-many\").
 
 Retrieves items relationship.
@@ -182,7 +182,7 @@ Retrieves items relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Folder Id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: items |  |
 
@@ -204,7 +204,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_folder_owners
 
-> models::UserCollectionFoldersMultiRelationshipDataDocument get_user_collection_folder_owners(id, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::UserCollectionFoldersMultiRelationshipDataDocument get_user_collection_folder_owners(id, include, page_cursor)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -216,7 +216,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Folder Id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -294,4 +294,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

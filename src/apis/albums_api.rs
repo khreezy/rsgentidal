@@ -45,18 +45,10 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/artists
     ///
     /// Retrieves artists relationship.
-    async fn get_album_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_artists<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -65,18 +57,10 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/coverArt
     ///
     /// Retrieves coverArt relationship.
-    async fn get_album_cover_art<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_cover_art<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -85,18 +69,10 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/genres
     ///
     /// Retrieves genres relationship.
-    async fn get_album_genres<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_genres<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -105,18 +81,10 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/items
     ///
     /// Retrieves items relationship.
-    async fn get_album_items<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_items<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -125,38 +93,23 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_album_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_album_owners<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::AlbumsMultiRelationshipDataDocument, Error<GetAlbumOwnersError>>;
 
     /// GET /albums/{id}/relationships/providers
     ///
     /// Retrieves providers relationship.
-    async fn get_album_providers<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_album_providers<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::AlbumsMultiRelationshipDataDocument, Error<GetAlbumProvidersError>>;
 
@@ -177,18 +130,11 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/suggestedCoverArts
     ///
     /// Retrieves suggestedCoverArts relationship.
-    async fn get_album_suggested_cover_arts<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_album_suggested_cover_arts<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<
         models::AlbumsSuggestedCoverArtsMultiRelationshipDataDocument,
@@ -199,7 +145,7 @@ pub trait AlbumsApi: Send + Sync {
     ///
     /// Retrieves multiple albums by available filters, or without if applicable.
     async fn get_albums<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
         'filter_left_square_bracket_barcode_id_right_square_bracket,
@@ -208,9 +154,7 @@ pub trait AlbumsApi: Send + Sync {
         'share_code,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_barcode_id_right_square_bracket: Option<Vec<String>>,
@@ -222,18 +166,10 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/similarAlbums
     ///
     /// Retrieves similarAlbums relationship.
-    async fn get_similar_albums<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_similar_albums<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -467,18 +403,10 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves artists relationship.
-    async fn get_album_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_artists<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -495,7 +423,7 @@ impl AlbumsApi for AlbumsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -568,18 +496,10 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves coverArt relationship.
-    async fn get_album_cover_art<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_cover_art<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -596,7 +516,7 @@ impl AlbumsApi for AlbumsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -669,18 +589,10 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves genres relationship.
-    async fn get_album_genres<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_genres<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -697,7 +609,7 @@ impl AlbumsApi for AlbumsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -770,18 +682,10 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves items relationship.
-    async fn get_album_items<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_album_items<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -798,7 +702,7 @@ impl AlbumsApi for AlbumsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -871,18 +775,11 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_album_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_album_owners<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::AlbumsMultiRelationshipDataDocument, Error<GetAlbumOwnersError>> {
         let local_var_configuration = &self.configuration;
@@ -916,7 +813,7 @@ impl AlbumsApi for AlbumsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -966,20 +863,12 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves providers relationship.
-    async fn get_album_providers<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_album_providers<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::AlbumsMultiRelationshipDataDocument, Error<GetAlbumProvidersError>> {
         let local_var_configuration = &self.configuration;
@@ -1017,7 +906,7 @@ impl AlbumsApi for AlbumsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1158,18 +1047,11 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves suggestedCoverArts relationship.
-    async fn get_album_suggested_cover_arts<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_album_suggested_cover_arts<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<
         models::AlbumsSuggestedCoverArtsMultiRelationshipDataDocument,
@@ -1206,7 +1088,7 @@ impl AlbumsApi for AlbumsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1254,7 +1136,7 @@ impl AlbumsApi for AlbumsApiClient {
 
     /// Retrieves multiple albums by available filters, or without if applicable.
     async fn get_albums<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
         'filter_left_square_bracket_barcode_id_right_square_bracket,
@@ -1263,9 +1145,7 @@ impl AlbumsApi for AlbumsApiClient {
         'share_code,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_barcode_id_right_square_bracket: Option<Vec<String>>,
@@ -1281,7 +1161,7 @@ impl AlbumsApi for AlbumsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1411,18 +1291,10 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves similarAlbums relationship.
-    async fn get_similar_albums<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_similar_albums<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -1439,7 +1311,7 @@ impl AlbumsApi for AlbumsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
