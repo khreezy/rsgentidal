@@ -7,5 +7,6 @@ extern crate serde_repr;
 extern crate url;
 
 pub mod apis;
+mod auth_provider;
 pub mod client;
 pub mod models;

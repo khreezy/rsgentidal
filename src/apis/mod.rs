@@ -26,7 +26,10 @@ impl<T> fmt::Display for Error<T> {
             Error::Serde(e) => ("serde", e.to_string()),
             Error::SerdePathToError(e) => ("serde", e.to_string()),
             Error::Io(e) => ("IO", e.to_string()),
-            Error::ResponseError(e) => ("response", format!("status code {}", e.status)),
+            Error::ResponseError(e) => (
+                "response",
+                format!("status code {} content {}", e.status, e.content),
+            ),
         };
         write!(f, "error in {}: {}", module, e)
     }
