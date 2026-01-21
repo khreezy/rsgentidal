@@ -1,10 +1,11 @@
 use std::ops::Deref;
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 use std::vec::IntoIter;
 
 use crate::apis::configuration::Configuration;
 use crate::apis::{Api, ApiClient};
-use chrono::Utc;
+use crate::auth_provider::{self, AccessTokenWithExpiry, AuthProvider, AuthProviderError};
+use chrono::{DateTime, Utc};
 use oauth2::basic::BasicTokenType;
 use oauth2::http::{Extensions, HeaderValue};
 use oauth2::{basic::BasicClient, EndpointNotSet, EndpointSet, TokenResponse};
@@ -90,6 +91,7 @@ pub struct OAuthConfig {
 }
 
 struct AuthTokenRefreshMiddleware {
+    auth_provider: crate::auth_provider::AuthProvider,
     http_client: oauth2::reqwest::Client,
     oauth_client: oauth2::basic::BasicClient<
         EndpointSet,
@@ -98,62 +100,97 @@ struct AuthTokenRefreshMiddleware {
         EndpointNotSet,
         EndpointSet,
     >,
-    refresh_token: String,
 }
 
+impl AuthTokenRefreshMiddleware {
+    async fn refresh_access_token(&self) -> Result<AccessTokenWithExpiry> {
+        let refresh_token = self.auth_provider.get_refresh_token();
+
+        let maybe_token = self
+            .oauth_client
+            .exchange_refresh_token(&refresh_token)
+            .request_async(&self.http_client)
+            .await;
+
+        let token = match maybe_token {
+            Ok(t) => t,
+            Err(e) => {
+                return Err(TidalClientError {
+                    msg: String::from("failed to refresh token"),
+                    cause: e.to_string(),
+                })
+            }
+        };
+
+        let Some(expires_in) = token.expires_in() else {
+            return Err(TidalClientError {
+                msg: String::from("failed to refresh access token"),
+                cause: String::from("expires_in was missing"),
+            });
+        };
+
+        let expiry = Utc::now() + expires_in;
+
+        Ok(AccessTokenWithExpiry {
+            access_token: token.access_token().clone(),
+            expiry,
+        })
+    }
+}
 #[async_trait::async_trait]
 impl Middleware for AuthTokenRefreshMiddleware {
     async fn handle(
         &self,
-        req: Request,
+        mut req: Request,
         extensions: &mut Extensions,
         next: Next<'_>,
     ) -> reqwest_middleware::Result<Response> {
-        let maybe_req_copy = req.try_clone();
+        let token = match self.auth_provider.get_access_token() {
+            Ok(t) => t.into_secret(),
+            Err(AuthProviderError::TokenExpiredError) => {
+                let token = match self.refresh_access_token().await {
+                    Ok(t) => t,
+                    Err(e) => {
+                        return Err(reqwest_middleware::Error::middleware(TidalClientError {
+                            msg: String::from("failed to refresh access token"),
+                            cause: e.to_string(),
+                        }))
+                    }
+                };
 
-        let res = next.clone().run(req, extensions).await;
+                match self.auth_provider.update_access_token(token.clone()) {
+                    Ok(_) => {}
+                    Err(e) => {
+                        return Err(reqwest_middleware::Error::middleware(TidalClientError {
+                            msg: String::from("failed to set new access token"),
+                            cause: e.to_string(),
+                        }))
+                    }
+                };
 
-        let mut req_copy = match maybe_req_copy {
-            Some(r) => r,
-            None => return res,
+                token.access_token.into_secret()
+            }
+            Err(e) => {
+                return Err(reqwest_middleware::Error::middleware(TidalClientError {
+                    msg: String::from("failed to get access token from auth provider"),
+                    cause: e.to_string(),
+                }))
+            }
         };
 
-        match res {
-            Ok(r) => {
-                if r.status().clone() == oauth2::http::StatusCode::UNAUTHORIZED {
-                    // Technically, there is a sub_status in the body that indicates our token is
-                    // expired, but  if we consume the body to check we can no longer return the body
-                    // if that is not the case. So instead, optimistically assume if you provided a refresh token
-                    // that we can go through that flow if we get a 403.
-                    let maybe_token = self
-                        .oauth_client
-                        .exchange_refresh_token(&oauth2::RefreshToken::new(
-                            self.refresh_token.clone(),
-                        ))
-                        .request_async(&self.http_client)
-                        .await;
-
-                    let token = match maybe_token {
-                        Ok(t) => t,
-                        Err(_) => return Ok(r),
-                    };
-
-                    let header = match HeaderValue::from_str(
-                        format!("Bearer {:?}", token.access_token()).as_str(),
-                    ) {
-                        Ok(h) => h,
-                        Err(_) => return Ok(r),
-                    };
-
-                    req_copy.headers_mut().insert("Authorization", header);
-
-                    next.run(req_copy, extensions).await
-                } else {
-                    Ok(r)
-                }
+        let header = match HeaderValue::from_str(format!("Bearer {}", token).as_str()) {
+            Ok(h) => h,
+            Err(e) => {
+                return Err(reqwest_middleware::Error::middleware(TidalClientError {
+                    msg: String::from("failed to get access token from auth provider"),
+                    cause: e.to_string(),
+                }))
             }
-            Err(e) => Err(e),
-        }
+        };
+
+        req.headers_mut().insert("Authorization", header);
+
+        next.run(req, extensions).await
     }
 }
 
@@ -234,10 +271,29 @@ impl TidalClient {
 
         let api_client = match config.auth_token {
             Some(auth_token) => {
+                let expiry = match DateTime::parse_from_rfc3339(&auth_token.expiry) {
+                    Ok(e) => e,
+                    Err(e) => {
+                        return Err(TidalClientError {
+                            msg: String::from("failed to parse expiry"),
+                            cause: e.to_string(),
+                        })
+                    }
+                }
+                .to_utc();
+
+                let auth_provider = AuthProvider {
+                    access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
+                        access_token: oauth2::AccessToken::new(auth_token.access_token),
+                        expiry,
+                    })),
+                    refresh_token: oauth2::RefreshToken::new(auth_token.refresh_token),
+                };
+
                 let refresh_middleware = AuthTokenRefreshMiddleware {
+                    auth_provider,
                     http_client: oauth_http_client.clone(),
                     oauth_client: oauth_client.clone(),
-                    refresh_token: auth_token.refresh_token,
                 };
 
                 let middleware_client = ClientBuilder::new(api_http_client)
@@ -246,7 +302,7 @@ impl TidalClient {
 
                 ApiClient::new(Arc::new(Configuration {
                     client: middleware_client,
-                    oauth_access_token: Some(auth_token.access_token),
+                    oauth_access_token: None,
                     ..Default::default()
                 }))
             }
