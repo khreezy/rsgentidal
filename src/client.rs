@@ -7,13 +7,11 @@ use crate::apis::{Api, ApiClient};
 use chrono::Utc;
 use oauth2::basic::BasicTokenType;
 use oauth2::http::{Extensions, HeaderValue};
-use oauth2::{
-    basic::BasicClient, EndpointNotSet, EndpointSet, StandardRevocableToken::RefreshToken,
-    TokenResponse,
-};
+use oauth2::{basic::BasicClient, EndpointNotSet, EndpointSet, TokenResponse};
 use oauth2::{
     AuthType, AuthUrl, AuthorizationCode, ClientId, CsrfToken, EmptyExtraTokenFields,
-    PkceCodeChallenge, PkceCodeVerifier, RedirectUrl, Scope, StandardTokenResponse, TokenUrl,
+    PkceCodeChallenge, PkceCodeVerifier, RedirectUrl, RefreshToken, Scope, StandardTokenResponse,
+    TokenUrl,
 };
 use reqwest::{Request, Response, StatusCode};
 use reqwest_middleware::{ClientBuilder, Extension, Middleware, Next};
@@ -61,13 +59,17 @@ pub struct Token {
 
 impl From<StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>> for Token {
     fn from(value: StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>) -> Self {
-        let expires_in = value.expires_in().unwrap_or_default();
+        let expires_in = value.expires_in().clone().unwrap_or_default();
 
         let expiry = Utc::now() + expires_in;
 
         Token {
-            access_token: value.access_token().into_secret(),
-            refresh_token: value.refresh_token().unwrap_or_default().into_secret(),
+            access_token: value.access_token().clone().into_secret(),
+            refresh_token: value
+                .refresh_token()
+                .unwrap_or(&oauth2::RefreshToken::new(String::from("")))
+                .clone()
+                .into_secret(),
             expiry: expiry.to_rfc3339(),
         }
     }
