@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_search_result_albums
 
-> models::SearchResultsMultiRelationshipDataDocument get_search_result_albums(id, explicit_filter, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::SearchResultsMultiRelationshipDataDocument get_search_result_albums(id, explicit_filter, page_cursor, country_code, include)
 Get albums relationship (\"to-many\").
 
 Retrieves albums relationship.
@@ -61,7 +61,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Search query string used as the resource identifier | [required] |
 **explicit_filter** | Option<**String**> | Explicit filter |  |[default to INCLUDE]
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: albums |  |
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_search_result_artists
 
-> models::SearchResultsMultiRelationshipDataDocument get_search_result_artists(id, explicit_filter, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::SearchResultsMultiRelationshipDataDocument get_search_result_artists(id, explicit_filter, page_cursor, country_code, include)
 Get artists relationship (\"to-many\").
 
 Retrieves artists relationship.
@@ -95,7 +95,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Search query string used as the resource identifier | [required] |
 **explicit_filter** | Option<**String**> | Explicit filter |  |[default to INCLUDE]
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: artists |  |
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_search_result_playlists
 
-> models::SearchResultsMultiRelationshipDataDocument get_search_result_playlists(id, explicit_filter, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::SearchResultsMultiRelationshipDataDocument get_search_result_playlists(id, explicit_filter, page_cursor, country_code, include)
 Get playlists relationship (\"to-many\").
 
 Retrieves playlists relationship.
@@ -129,7 +129,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Search query string used as the resource identifier | [required] |
 **explicit_filter** | Option<**String**> | Explicit filter |  |[default to INCLUDE]
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: playlists |  |
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_search_result_tracks
 
-> models::SearchResultsMultiRelationshipDataDocument get_search_result_tracks(id, explicit_filter, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::SearchResultsMultiRelationshipDataDocument get_search_result_tracks(id, explicit_filter, page_cursor, country_code, include)
 Get tracks relationship (\"to-many\").
 
 Retrieves tracks relationship.
@@ -163,7 +163,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Search query string used as the resource identifier | [required] |
 **explicit_filter** | Option<**String**> | Explicit filter |  |[default to INCLUDE]
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: tracks |  |
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_search_result_videos
 
-> models::SearchResultsMultiRelationshipDataDocument get_search_result_videos(id, explicit_filter, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::SearchResultsMultiRelationshipDataDocument get_search_result_videos(id, explicit_filter, page_cursor, country_code, include)
 Get videos relationship (\"to-many\").
 
 Retrieves videos relationship.
@@ -197,7 +197,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Search query string used as the resource identifier | [required] |
 **explicit_filter** | Option<**String**> | Explicit filter |  |[default to INCLUDE]
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: videos |  |
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_search_results_top_hits
 
-> models::SearchResultsMultiRelationshipDataDocument get_search_results_top_hits(id, explicit_filter, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::SearchResultsMultiRelationshipDataDocument get_search_results_top_hits(id, explicit_filter, page_cursor, country_code, include)
 Get topHits relationship (\"to-many\").
 
 Retrieves topHits relationship.
@@ -231,7 +231,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Search query string used as the resource identifier | [required] |
 **explicit_filter** | Option<**String**> | Explicit filter |  |[default to INCLUDE]
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: topHits |  |
 
@@ -249,4 +249,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

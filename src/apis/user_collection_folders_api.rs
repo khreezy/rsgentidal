@@ -70,17 +70,10 @@ pub trait UserCollectionFoldersApi: Send + Sync {
     /// GET /userCollectionFolders/{id}/relationships/items
     ///
     /// Retrieves items relationship.
-    async fn get_user_collection_folder_items<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'sort,
-        'include,
-    >(
+    async fn get_user_collection_folder_items<'id, 'page_cursor, 'sort, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -91,17 +84,11 @@ pub trait UserCollectionFoldersApi: Send + Sync {
     /// GET /userCollectionFolders/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_user_collection_folder_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_user_collection_folder_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::UserCollectionFoldersMultiRelationshipDataDocument,
         Error<GetUserCollectionFolderOwnersError>,
@@ -421,17 +408,10 @@ impl UserCollectionFoldersApi for UserCollectionFoldersApiClient {
     }
 
     /// Retrieves items relationship.
-    async fn get_user_collection_folder_items<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'sort,
-        'include,
-    >(
+    async fn get_user_collection_folder_items<'id, 'page_cursor, 'sort, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -450,7 +430,7 @@ impl UserCollectionFoldersApi for UserCollectionFoldersApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -531,17 +511,11 @@ impl UserCollectionFoldersApi for UserCollectionFoldersApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_user_collection_folder_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_user_collection_folder_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::UserCollectionFoldersMultiRelationshipDataDocument,
         Error<GetUserCollectionFolderOwnersError>,
@@ -577,7 +551,7 @@ impl UserCollectionFoldersApi for UserCollectionFoldersApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

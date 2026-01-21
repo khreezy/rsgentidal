@@ -40,6 +40,9 @@ impl Display for TidalClientError {
     }
 }
 
+/// TidalClient is the entrypoint for the Tidal API.
+/// It manages tokens, provides OAuth helper methods,
+/// and exposes methods for calling the Tidal API.
 #[derive(Clone)]
 pub struct TidalClient {
     api_client: ApiClient,
@@ -254,6 +257,8 @@ impl TidalClient {
         })))
     }
 
+    ///  Return a new copy of this client with updated or initialized token information.
+    ///  Useful if you're using the client credentials flow to not have to duplicate configuration.
     pub fn with_token(self, auth_token: Token) -> Result<Self> {
         let api_client = Self::api_client_from_token(
             self.oauth_http_client.clone(),
@@ -268,6 +273,13 @@ impl TidalClient {
         })
     }
 
+    /// Initializes a new TidalClient.
+    ///
+    /// If you provide token configuration, the TidalClient will manage refreshing tokens and updating its own token information from refreshed tokens.
+    /// Otherwise, exposes helpful methods for initiating various OAuth flows.
+    /// Right now the flows that are implemented are:
+    ///     - PKCE Auth code
+    ///     - Client credentials
     pub fn new(config: TidalClientConfig) -> Result<Self> {
         let oauth_http_client = match oauth2::reqwest::ClientBuilder::new()
             .redirect(oauth2::reqwest::redirect::Policy::none())

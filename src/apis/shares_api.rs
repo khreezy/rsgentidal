@@ -38,32 +38,20 @@ pub trait SharesApi: Send + Sync {
     /// GET /shares/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_share_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_share_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::SharesMultiRelationshipDataDocument, Error<GetShareOwnersError>>;
 
     /// GET /shares/{id}/relationships/sharedResources
     ///
     /// Retrieves sharedResources relationship.
-    async fn get_share_shared_resources<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_share_shared_resources<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SharesMultiRelationshipDataDocument, Error<GetShareSharedResourcesError>>;
 
@@ -226,17 +214,11 @@ impl SharesApi for SharesApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_share_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_share_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::SharesMultiRelationshipDataDocument, Error<GetShareOwnersError>> {
         let local_var_configuration = &self.configuration;
 
@@ -269,7 +251,7 @@ impl SharesApi for SharesApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -315,16 +297,10 @@ impl SharesApi for SharesApiClient {
     }
 
     /// Retrieves sharedResources relationship.
-    async fn get_share_shared_resources<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_share_shared_resources<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SharesMultiRelationshipDataDocument, Error<GetShareSharedResourcesError>>
     {
@@ -340,7 +316,7 @@ impl SharesApi for SharesApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

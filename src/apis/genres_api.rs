@@ -31,14 +31,12 @@ pub trait GenresApi: Send + Sync {
     ///
     /// Retrieves multiple genres by available filters, or without if applicable.
     async fn get_genres<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'locale,
         'filter_left_square_bracket_id_right_square_bracket,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         locale: Option<&'locale str>,
         filter_left_square_bracket_id_right_square_bracket: Option<Vec<String>>,
     ) -> Result<models::GenresMultiResourceDataDocument, Error<GetGenresError>>;
@@ -122,14 +120,12 @@ impl GenresApi for GenresApiClient {
 
     /// Retrieves multiple genres by available filters, or without if applicable.
     async fn get_genres<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'locale,
         'filter_left_square_bracket_id_right_square_bracket,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         locale: Option<&'locale str>,
         filter_left_square_bracket_id_right_square_bracket: Option<Vec<String>>,
     ) -> Result<models::GenresMultiResourceDataDocument, Error<GetGenresError>> {
@@ -141,7 +137,7 @@ impl GenresApi for GenresApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

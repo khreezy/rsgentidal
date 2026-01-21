@@ -34,17 +34,11 @@ pub trait ReactionsApi: Send + Sync {
     /// GET /reactions/{id}/relationships/ownerProfiles
     ///
     /// Retrieves ownerProfiles relationship.
-    async fn get_reaction_owner_profile<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_reaction_owner_profile<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ReactionsMultiRelationshipDataDocument, Error<GetReactionOwnerProfileError>>;
 
     /// GET /reactions
@@ -53,7 +47,7 @@ pub trait ReactionsApi: Send + Sync {
     async fn get_reactions<
         'stats,
         'stats_only,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'include,
         'filter_left_square_bracket_owner_id_right_square_bracket,
         'filter_left_square_bracket_reacted_resource_id_right_square_bracket,
@@ -63,9 +57,7 @@ pub trait ReactionsApi: Send + Sync {
         &self,
         stats: Option<&'stats str>,
         stats_only: Option<bool>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_owner_id_right_square_bracket: Option<Vec<String>>,
         filter_left_square_bracket_reacted_resource_id_right_square_bracket: Option<Vec<String>>,
@@ -182,17 +174,11 @@ impl ReactionsApi for ReactionsApiClient {
     }
 
     /// Retrieves ownerProfiles relationship.
-    async fn get_reaction_owner_profile<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_reaction_owner_profile<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ReactionsMultiRelationshipDataDocument, Error<GetReactionOwnerProfileError>>
     {
         let local_var_configuration = &self.configuration;
@@ -226,7 +212,7 @@ impl ReactionsApi for ReactionsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -272,7 +258,7 @@ impl ReactionsApi for ReactionsApiClient {
     async fn get_reactions<
         'stats,
         'stats_only,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'include,
         'filter_left_square_bracket_owner_id_right_square_bracket,
         'filter_left_square_bracket_reacted_resource_id_right_square_bracket,
@@ -282,9 +268,7 @@ impl ReactionsApi for ReactionsApiClient {
         &self,
         stats: Option<&'stats str>,
         stats_only: Option<bool>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_owner_id_right_square_bracket: Option<Vec<String>>,
         filter_left_square_bracket_reacted_resource_id_right_square_bracket: Option<Vec<String>>,
@@ -307,7 +291,7 @@ impl ReactionsApi for ReactionsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("statsOnly", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

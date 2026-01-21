@@ -35,16 +35,14 @@ pub trait SearchResultsApi: Send + Sync {
     async fn get_search_result_albums<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SearchResultsMultiRelationshipDataDocument, Error<GetSearchResultAlbumsError>>;
@@ -55,16 +53,14 @@ pub trait SearchResultsApi: Send + Sync {
     async fn get_search_result_artists<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -78,16 +74,14 @@ pub trait SearchResultsApi: Send + Sync {
     async fn get_search_result_playlists<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -101,16 +95,14 @@ pub trait SearchResultsApi: Send + Sync {
     async fn get_search_result_tracks<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SearchResultsMultiRelationshipDataDocument, Error<GetSearchResultTracksError>>;
@@ -121,16 +113,14 @@ pub trait SearchResultsApi: Send + Sync {
     async fn get_search_result_videos<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SearchResultsMultiRelationshipDataDocument, Error<GetSearchResultVideosError>>;
@@ -141,16 +131,14 @@ pub trait SearchResultsApi: Send + Sync {
     async fn get_search_results_top_hits<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -264,16 +252,14 @@ impl SearchResultsApi for SearchResultsApiClient {
     async fn get_search_result_albums<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SearchResultsMultiRelationshipDataDocument, Error<GetSearchResultAlbumsError>>
@@ -294,7 +280,7 @@ impl SearchResultsApi for SearchResultsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("explicitFilter", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -366,16 +352,14 @@ impl SearchResultsApi for SearchResultsApiClient {
     async fn get_search_result_artists<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -398,7 +382,7 @@ impl SearchResultsApi for SearchResultsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("explicitFilter", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -470,16 +454,14 @@ impl SearchResultsApi for SearchResultsApiClient {
     async fn get_search_result_playlists<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -502,7 +484,7 @@ impl SearchResultsApi for SearchResultsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("explicitFilter", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -574,16 +556,14 @@ impl SearchResultsApi for SearchResultsApiClient {
     async fn get_search_result_tracks<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SearchResultsMultiRelationshipDataDocument, Error<GetSearchResultTracksError>>
@@ -604,7 +584,7 @@ impl SearchResultsApi for SearchResultsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("explicitFilter", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -676,16 +656,14 @@ impl SearchResultsApi for SearchResultsApiClient {
     async fn get_search_result_videos<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::SearchResultsMultiRelationshipDataDocument, Error<GetSearchResultVideosError>>
@@ -706,7 +684,7 @@ impl SearchResultsApi for SearchResultsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("explicitFilter", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -778,16 +756,14 @@ impl SearchResultsApi for SearchResultsApiClient {
     async fn get_search_results_top_hits<
         'id,
         'explicit_filter,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<
@@ -810,7 +786,7 @@ impl SearchResultsApi for SearchResultsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("explicitFilter", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

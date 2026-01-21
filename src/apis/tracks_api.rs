@@ -45,114 +45,69 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/albums
     ///
     /// Retrieves albums relationship.
-    async fn get_track_albums<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_albums<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackAlbumsError>>;
 
     /// GET /tracks/{id}/relationships/genres
     ///
     /// Retrieves genres relationship.
-    async fn get_track_genres<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_genres<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackGenresError>>;
 
     /// GET /tracks/{id}/relationships/lyrics
     ///
     /// Retrieves lyrics relationship.
-    async fn get_track_lyrics<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_lyrics<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackLyricsError>>;
 
     /// GET /tracks/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_track_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_owners<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackOwnersError>>;
 
     /// GET /tracks/{id}/relationships/providers
     ///
     /// Retrieves providers relationship.
-    async fn get_track_providers<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_providers<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackProvidersError>>;
 
     /// GET /tracks/{id}/relationships/radio
     ///
     /// Retrieves radio relationship.
-    async fn get_track_radio<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_radio<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackRadioError>>;
 
@@ -173,36 +128,21 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/shares
     ///
     /// Retrieves shares relationship.
-    async fn get_track_shares<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_shares<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackSharesError>>;
 
     /// GET /tracks/{id}/relationships/similarTracks
     ///
     /// Retrieves similarTracks relationship.
-    async fn get_track_similar_tracks<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_track_similar_tracks<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -232,7 +172,7 @@ pub trait TracksApi: Send + Sync {
     ///
     /// Retrieves multiple tracks by available filters, or without if applicable.
     async fn get_tracks<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
         'filter_left_square_bracket_id_right_square_bracket,
@@ -241,9 +181,7 @@ pub trait TracksApi: Send + Sync {
         'share_code,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_id_right_square_bracket: Option<Vec<String>>,
@@ -275,18 +213,10 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/artists
     ///
     /// Retrieves artists relationship.
-    async fn patch_track_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn patch_track_artists<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -489,20 +419,12 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves albums relationship.
-    async fn get_track_albums<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_albums<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackAlbumsError>> {
         let local_var_configuration = &self.configuration;
@@ -540,7 +462,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -590,20 +512,12 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves genres relationship.
-    async fn get_track_genres<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_genres<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackGenresError>> {
         let local_var_configuration = &self.configuration;
@@ -641,7 +555,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -691,18 +605,11 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves lyrics relationship.
-    async fn get_track_lyrics<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_lyrics<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackLyricsError>> {
         let local_var_configuration = &self.configuration;
@@ -736,7 +643,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -786,18 +693,11 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_track_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_owners<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackOwnersError>> {
         let local_var_configuration = &self.configuration;
@@ -831,7 +731,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -881,20 +781,12 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves providers relationship.
-    async fn get_track_providers<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_providers<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackProvidersError>> {
         let local_var_configuration = &self.configuration;
@@ -932,7 +824,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -982,18 +874,11 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves radio relationship.
-    async fn get_track_radio<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_radio<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackRadioError>> {
         let local_var_configuration = &self.configuration;
@@ -1027,7 +912,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1168,18 +1053,11 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves shares relationship.
-    async fn get_track_shares<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'share_code,
-    >(
+    async fn get_track_shares<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         share_code: Option<&'share_code str>,
     ) -> Result<models::TracksMultiRelationshipDataDocument, Error<GetTrackSharesError>> {
         let local_var_configuration = &self.configuration;
@@ -1213,7 +1091,7 @@ impl TracksApi for TracksApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1260,18 +1138,10 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves similarTracks relationship.
-    async fn get_track_similar_tracks<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn get_track_similar_tracks<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -1289,7 +1159,7 @@ impl TracksApi for TracksApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1528,7 +1398,7 @@ impl TracksApi for TracksApiClient {
 
     /// Retrieves multiple tracks by available filters, or without if applicable.
     async fn get_tracks<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'include,
         'filter_left_square_bracket_id_right_square_bracket,
@@ -1537,9 +1407,7 @@ impl TracksApi for TracksApiClient {
         'share_code,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_id_right_square_bracket: Option<Vec<String>>,
@@ -1555,7 +1423,7 @@ impl TracksApi for TracksApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1782,18 +1650,10 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves artists relationship.
-    async fn patch_track_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-        'share_code,
-    >(
+    async fn patch_track_artists<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
         share_code: Option<&'share_code str>,
@@ -1810,7 +1670,7 @@ impl TracksApi for TracksApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

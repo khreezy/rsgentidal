@@ -72,35 +72,21 @@ pub trait PlaylistsApi: Send + Sync {
     /// GET /playlists/{id}/relationships/coverArt
     ///
     /// Retrieves coverArt relationship.
-    async fn get_playlist_cover_art<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_playlist_cover_art<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlaylistsMultiRelationshipDataDocument, Error<GetPlaylistCoverArtError>>;
 
     /// GET /playlists/{id}/relationships/items
     ///
     /// Retrieves items relationship.
-    async fn get_playlist_items<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_playlist_items<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::PlaylistsItemsMultiRelationshipDataDocument, Error<GetPlaylistItemsError>>;
@@ -108,44 +94,30 @@ pub trait PlaylistsApi: Send + Sync {
     /// GET /playlists/{id}/relationships/ownerProfiles
     ///
     /// Retrieves ownerProfiles relationship.
-    async fn get_playlist_owner_profiles<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_playlist_owner_profiles<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlaylistsMultiRelationshipDataDocument, Error<GetPlaylistOwnerProfilesError>>;
 
     /// GET /playlists/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_playlist_owners<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_playlist_owners<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlaylistsMultiRelationshipDataDocument, Error<GetPlaylistOwnersError>>;
 
     /// GET /playlists
     ///
     /// Retrieves multiple playlists by available filters, or without if applicable.
     async fn get_playlists<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'include,
@@ -153,9 +125,7 @@ pub trait PlaylistsApi: Send + Sync {
         'filter_left_square_bracket_owners_id_right_square_bracket,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
@@ -504,19 +474,12 @@ impl PlaylistsApi for PlaylistsApiClient {
     }
 
     /// Retrieves coverArt relationship.
-    async fn get_playlist_cover_art<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_playlist_cover_art<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlaylistsMultiRelationshipDataDocument, Error<GetPlaylistCoverArtError>>
     {
         let local_var_configuration = &self.configuration;
@@ -554,7 +517,7 @@ impl PlaylistsApi for PlaylistsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -600,17 +563,10 @@ impl PlaylistsApi for PlaylistsApiClient {
     }
 
     /// Retrieves items relationship.
-    async fn get_playlist_items<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_playlist_items<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::PlaylistsItemsMultiRelationshipDataDocument, Error<GetPlaylistItemsError>>
@@ -627,7 +583,7 @@ impl PlaylistsApi for PlaylistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -696,19 +652,12 @@ impl PlaylistsApi for PlaylistsApiClient {
     }
 
     /// Retrieves ownerProfiles relationship.
-    async fn get_playlist_owner_profiles<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_playlist_owner_profiles<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlaylistsMultiRelationshipDataDocument, Error<GetPlaylistOwnerProfilesError>>
     {
         let local_var_configuration = &self.configuration;
@@ -746,7 +695,7 @@ impl PlaylistsApi for PlaylistsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -792,19 +741,12 @@ impl PlaylistsApi for PlaylistsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_playlist_owners<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_playlist_owners<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlaylistsMultiRelationshipDataDocument, Error<GetPlaylistOwnersError>> {
         let local_var_configuration = &self.configuration;
 
@@ -841,7 +783,7 @@ impl PlaylistsApi for PlaylistsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -888,7 +830,7 @@ impl PlaylistsApi for PlaylistsApiClient {
 
     /// Retrieves multiple playlists by available filters, or without if applicable.
     async fn get_playlists<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'sort,
         'country_code,
         'include,
@@ -896,9 +838,7 @@ impl PlaylistsApi for PlaylistsApiClient {
         'filter_left_square_bracket_owners_id_right_square_bracket,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         sort: Option<Vec<String>>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
@@ -913,7 +853,7 @@ impl PlaylistsApi for PlaylistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

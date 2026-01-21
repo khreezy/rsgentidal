@@ -67,32 +67,20 @@ pub trait PlayQueuesApi: Send + Sync {
     /// GET /playQueues/{id}/relationships/future
     ///
     /// Retrieves future relationship.
-    async fn get_future_play_queue<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_future_play_queue<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::PlayQueuesFutureMultiRelationshipDataDocument, Error<GetFuturePlayQueueError>>;
 
     /// GET /playQueues/{id}/relationships/past
     ///
     /// Retrieves past relationship.
-    async fn get_past_play_queues<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_past_play_queues<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::PlayQueuesPastMultiRelationshipDataDocument, Error<GetPastPlayQueuesError>>;
 
@@ -108,31 +96,23 @@ pub trait PlayQueuesApi: Send + Sync {
     /// GET /playQueues/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_play_queue_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_play_queue_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlayQueuesMultiRelationshipDataDocument, Error<GetPlayQueueOwnersError>>;
 
     /// GET /playQueues
     ///
     /// Retrieves multiple playQueues by available filters, or without if applicable.
     async fn get_play_queues<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'include,
         'filter_left_square_bracket_owners_id_right_square_bracket,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_owners_id_right_square_bracket: Option<Vec<String>>,
     ) -> Result<models::PlayQueuesMultiResourceDataDocument, Error<GetPlayQueuesError>>;
@@ -456,16 +436,10 @@ impl PlayQueuesApi for PlayQueuesApiClient {
     }
 
     /// Retrieves future relationship.
-    async fn get_future_play_queue<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_future_play_queue<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::PlayQueuesFutureMultiRelationshipDataDocument, Error<GetFuturePlayQueueError>>
     {
@@ -481,7 +455,7 @@ impl PlayQueuesApi for PlayQueuesApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -543,16 +517,10 @@ impl PlayQueuesApi for PlayQueuesApiClient {
     }
 
     /// Retrieves past relationship.
-    async fn get_past_play_queues<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_past_play_queues<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::PlayQueuesPastMultiRelationshipDataDocument, Error<GetPastPlayQueuesError>>
     {
@@ -568,7 +536,7 @@ impl PlayQueuesApi for PlayQueuesApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -705,17 +673,11 @@ impl PlayQueuesApi for PlayQueuesApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_play_queue_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_play_queue_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::PlayQueuesMultiRelationshipDataDocument, Error<GetPlayQueueOwnersError>>
     {
         let local_var_configuration = &self.configuration;
@@ -749,7 +711,7 @@ impl PlayQueuesApi for PlayQueuesApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -793,14 +755,12 @@ impl PlayQueuesApi for PlayQueuesApiClient {
 
     /// Retrieves multiple playQueues by available filters, or without if applicable.
     async fn get_play_queues<
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'include,
         'filter_left_square_bracket_owners_id_right_square_bracket,
     >(
         &self,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
         filter_left_square_bracket_owners_id_right_square_bracket: Option<Vec<String>>,
     ) -> Result<models::PlayQueuesMultiResourceDataDocument, Error<GetPlayQueuesError>> {
@@ -812,7 +772,7 @@ impl PlayQueuesApi for PlayQueuesApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

@@ -153,7 +153,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_albums
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_albums(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::ArtistsMultiRelationshipDataDocument get_artist_albums(id, page_cursor, country_code, include)
 Get albums relationship (\"to-many\").
 
 Retrieves albums relationship.
@@ -164,7 +164,7 @@ Retrieves albums relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: albums |  |
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_artist_roles
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_artist_roles(id, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::ArtistsMultiRelationshipDataDocument get_artist_artist_roles(id, include, page_cursor)
 Get roles relationship (\"to-many\").
 
 Retrieves roles relationship.
@@ -230,7 +230,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: roles |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -250,7 +250,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_follower
 
-> models::ArtistsFollowingMultiRelationshipDataDocument get_artist_follower(id, viewer_context, page_left_square_bracket_cursor_right_square_bracket, include)
+> models::ArtistsFollowingMultiRelationshipDataDocument get_artist_follower(id, viewer_context, page_cursor, include)
 Get following relationship (\"to-many\").
 
 Retrieves following relationship.
@@ -262,7 +262,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
 **viewer_context** | Option<**String**> |  |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: following |  |
 
 ### Return type
@@ -283,7 +283,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_followers
 
-> models::ArtistsFollowersMultiRelationshipDataDocument get_artist_followers(id, viewer_context, page_left_square_bracket_cursor_right_square_bracket, include)
+> models::ArtistsFollowersMultiRelationshipDataDocument get_artist_followers(id, viewer_context, page_cursor, include)
 Get followers relationship (\"to-many\").
 
 Retrieves followers relationship.
@@ -295,7 +295,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
 **viewer_context** | Option<**String**> |  |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: followers |  |
 
 ### Return type
@@ -316,7 +316,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_owners
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_owners(id, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::ArtistsMultiRelationshipDataDocument get_artist_owners(id, include, page_cursor)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -328,7 +328,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -348,7 +348,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_profile_art
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_profile_art(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::ArtistsMultiRelationshipDataDocument get_artist_profile_art(id, country_code, include, page_cursor)
 Get profileArt relationship (\"to-many\").
 
 Retrieves profileArt relationship.
@@ -361,7 +361,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Artist id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: profileArt |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -381,7 +381,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_radio
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_radio(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::ArtistsMultiRelationshipDataDocument get_artist_radio(id, page_cursor, country_code, include)
 Get radio relationship (\"to-many\").
 
 Retrieves radio relationship.
@@ -392,7 +392,7 @@ Retrieves radio relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: radio |  |
 
@@ -414,7 +414,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_similar_artists
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_similar_artists(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::ArtistsMultiRelationshipDataDocument get_artist_similar_artists(id, page_cursor, country_code, include)
 Get similarArtists relationship (\"to-many\").
 
 Retrieves similarArtists relationship.
@@ -425,7 +425,7 @@ Retrieves similarArtists relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: similarArtists |  |
 
@@ -447,7 +447,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_track_providers
 
-> models::ArtistsTrackProvidersMultiRelationshipDataDocument get_artist_track_providers(id, page_left_square_bracket_cursor_right_square_bracket, include)
+> models::ArtistsTrackProvidersMultiRelationshipDataDocument get_artist_track_providers(id, page_cursor, include)
 Get trackProviders relationship (\"to-many\").
 
 Retrieves trackProviders relationship.
@@ -458,7 +458,7 @@ Retrieves trackProviders relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: trackProviders |  |
 
 ### Return type
@@ -479,7 +479,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_tracks
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_tracks(id, collapse_by, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::ArtistsMultiRelationshipDataDocument get_artist_tracks(id, collapse_by, page_cursor, country_code, include)
 Get tracks relationship (\"to-many\").
 
 Retrieves tracks relationship.
@@ -491,7 +491,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
 **collapse_by** | **String** | Collapse by options for getting artist tracks. Available options: FINGERPRINT, ID. FINGERPRINT option might collapse similar tracks based entry fingerprints while collapsing by ID always returns all available items. | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: tracks |  |
 
@@ -513,7 +513,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_artist_videos
 
-> models::ArtistsMultiRelationshipDataDocument get_artist_videos(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::ArtistsMultiRelationshipDataDocument get_artist_videos(id, page_cursor, country_code, include)
 Get videos relationship (\"to-many\").
 
 Retrieves videos relationship.
@@ -524,7 +524,7 @@ Retrieves videos relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Artist id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: videos |  |
 
@@ -637,4 +637,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

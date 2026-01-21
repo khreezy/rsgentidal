@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_video_albums
 
-> models::VideosMultiRelationshipDataDocument get_video_albums(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::VideosMultiRelationshipDataDocument get_video_albums(id, page_cursor, country_code, include)
 Get albums relationship (\"to-many\").
 
 Retrieves albums relationship.
@@ -59,7 +59,7 @@ Retrieves albums relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Video id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: albums |  |
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_video_artists
 
-> models::VideosMultiRelationshipDataDocument get_video_artists(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::VideosMultiRelationshipDataDocument get_video_artists(id, page_cursor, country_code, include)
 Get artists relationship (\"to-many\").
 
 Retrieves artists relationship.
@@ -92,7 +92,7 @@ Retrieves artists relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Video id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: artists |  |
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_video_providers
 
-> models::VideosMultiRelationshipDataDocument get_video_providers(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::VideosMultiRelationshipDataDocument get_video_providers(id, page_cursor, country_code, include)
 Get providers relationship (\"to-many\").
 
 Retrieves providers relationship.
@@ -125,7 +125,7 @@ Retrieves providers relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Video id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: providers |  |
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_video_thumbnail_art
 
-> models::VideosMultiRelationshipDataDocument get_video_thumbnail_art(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::VideosMultiRelationshipDataDocument get_video_thumbnail_art(id, page_cursor, country_code, include)
 Get thumbnailArt relationship (\"to-many\").
 
 Retrieves thumbnailArt relationship.
@@ -190,7 +190,7 @@ Retrieves thumbnailArt relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Video id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: thumbnailArt |  |
 
@@ -241,4 +241,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

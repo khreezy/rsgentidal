@@ -43,19 +43,12 @@ pub trait LyricsApi: Send + Sync {
     /// GET /lyrics/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_lyric_owners<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_lyric_owners<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::LyricsMultiRelationshipDataDocument, Error<GetLyricOwnersError>>;
 
     /// GET /lyrics/{id}/relationships/track
@@ -273,19 +266,12 @@ impl LyricsApi for LyricsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_lyric_owners<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_lyric_owners<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::LyricsMultiRelationshipDataDocument, Error<GetLyricOwnersError>> {
         let local_var_configuration = &self.configuration;
 
@@ -322,7 +308,7 @@ impl LyricsApi for LyricsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

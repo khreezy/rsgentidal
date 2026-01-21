@@ -30,17 +30,11 @@ pub trait TrackStatisticsApi: Send + Sync {
     /// GET /trackStatistics/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_track_statistic_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_track_statistic_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::TrackStatisticsMultiRelationshipDataDocument,
         Error<GetTrackStatisticOwnersError>,
@@ -146,17 +140,11 @@ impl TrackStatisticsApi for TrackStatisticsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_track_statistic_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_track_statistic_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::TrackStatisticsMultiRelationshipDataDocument,
         Error<GetTrackStatisticOwnersError>,
@@ -192,7 +180,7 @@ impl TrackStatisticsApi for TrackStatisticsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

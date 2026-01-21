@@ -373,7 +373,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_albums
 
-> models::UserCollectionsAlbumsMultiRelationshipDataDocument get_user_collection_albums(id, page_left_square_bracket_cursor_right_square_bracket, sort, country_code, locale, include)
+> models::UserCollectionsAlbumsMultiRelationshipDataDocument get_user_collection_albums(id, page_cursor, sort, country_code, locale, include)
 Get albums relationship (\"to-many\").
 
 Retrieves albums relationship.
@@ -384,7 +384,7 @@ Retrieves albums relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | User collection id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **locale** | Option<**String**> | BCP 47 locale (e.g., en-US, nb-NO, pt-BR). Defaults to en-US if not provided or unsupported. |  |[default to en-US]
@@ -408,7 +408,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_artists
 
-> models::UserCollectionsArtistsMultiRelationshipDataDocument get_user_collection_artists(id, page_left_square_bracket_cursor_right_square_bracket, sort, country_code, locale, include)
+> models::UserCollectionsArtistsMultiRelationshipDataDocument get_user_collection_artists(id, page_cursor, sort, country_code, locale, include)
 Get artists relationship (\"to-many\").
 
 Retrieves artists relationship.
@@ -419,7 +419,7 @@ Retrieves artists relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | User collection id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **locale** | Option<**String**> | BCP 47 locale (e.g., en-US, nb-NO, pt-BR). Defaults to en-US if not provided or unsupported. |  |[default to en-US]
@@ -443,7 +443,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_owners
 
-> models::UserCollectionsMultiRelationshipDataDocument get_user_collection_owners(id, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::UserCollectionsMultiRelationshipDataDocument get_user_collection_owners(id, include, page_cursor)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -455,7 +455,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | User collection id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -475,7 +475,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_playlists
 
-> models::UserCollectionsPlaylistsMultiRelationshipDataDocument get_user_collection_playlists(id, collection_view, page_left_square_bracket_cursor_right_square_bracket, sort, include)
+> models::UserCollectionsPlaylistsMultiRelationshipDataDocument get_user_collection_playlists(id, collection_view, page_cursor, sort, include)
 Get playlists relationship (\"to-many\").
 
 Retrieves playlists relationship.
@@ -487,7 +487,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | User collection id | [required] |
 **collection_view** | Option<**String**> |  |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: playlists |  |
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_tracks
 
-> models::UserCollectionsTracksMultiRelationshipDataDocument get_user_collection_tracks(id, page_left_square_bracket_cursor_right_square_bracket, sort, country_code, locale, include)
+> models::UserCollectionsTracksMultiRelationshipDataDocument get_user_collection_tracks(id, page_cursor, sort, country_code, locale, include)
 Get tracks relationship (\"to-many\").
 
 Retrieves tracks relationship.
@@ -520,7 +520,7 @@ Retrieves tracks relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | User collection id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **locale** | Option<**String**> | BCP 47 locale (e.g., en-US, nb-NO, pt-BR). Defaults to en-US if not provided or unsupported. |  |[default to en-US]
@@ -544,7 +544,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_user_collection_videos
 
-> models::UserCollectionsVideosMultiRelationshipDataDocument get_user_collection_videos(id, page_left_square_bracket_cursor_right_square_bracket, sort, country_code, locale, include)
+> models::UserCollectionsVideosMultiRelationshipDataDocument get_user_collection_videos(id, page_cursor, sort, country_code, locale, include)
 Get videos relationship (\"to-many\").
 
 Retrieves videos relationship.
@@ -555,7 +555,7 @@ Retrieves videos relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | User collection id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **locale** | Option<**String**> | BCP 47 locale (e.g., en-US, nb-NO, pt-BR). Defaults to en-US if not provided or unsupported. |  |[default to en-US]
@@ -575,4 +575,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

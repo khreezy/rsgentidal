@@ -66,17 +66,10 @@ pub trait ArtistsApi: Send + Sync {
     /// GET /artists/{id}/relationships/albums
     ///
     /// Retrieves albums relationship.
-    async fn get_artist_albums<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_albums<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistAlbumsError>>;
@@ -94,103 +87,63 @@ pub trait ArtistsApi: Send + Sync {
     /// GET /artists/{id}/relationships/roles
     ///
     /// Retrieves roles relationship.
-    async fn get_artist_artist_roles<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_artist_roles<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistArtistRolesError>>;
 
     /// GET /artists/{id}/relationships/following
     ///
     /// Retrieves following relationship.
-    async fn get_artist_follower<
-        'id,
-        'viewer_context,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_artist_follower<'id, 'viewer_context, 'page_cursor, 'include>(
         &self,
         id: &'id str,
         viewer_context: Option<&'viewer_context str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsFollowingMultiRelationshipDataDocument, Error<GetArtistFollowerError>>;
 
     /// GET /artists/{id}/relationships/followers
     ///
     /// Retrieves followers relationship.
-    async fn get_artist_followers<
-        'id,
-        'viewer_context,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_artist_followers<'id, 'viewer_context, 'page_cursor, 'include>(
         &self,
         id: &'id str,
         viewer_context: Option<&'viewer_context str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsFollowersMultiRelationshipDataDocument, Error<GetArtistFollowersError>>;
 
     /// GET /artists/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_artist_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistOwnersError>>;
 
     /// GET /artists/{id}/relationships/profileArt
     ///
     /// Retrieves profileArt relationship.
-    async fn get_artist_profile_art<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_profile_art<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistProfileArtError>>;
 
     /// GET /artists/{id}/relationships/radio
     ///
     /// Retrieves radio relationship.
-    async fn get_artist_radio<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_radio<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistRadioError>>;
@@ -198,17 +151,10 @@ pub trait ArtistsApi: Send + Sync {
     /// GET /artists/{id}/relationships/similarArtists
     ///
     /// Retrieves similarArtists relationship.
-    async fn get_artist_similar_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_similar_artists<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistSimilarArtistsError>>;
@@ -216,16 +162,10 @@ pub trait ArtistsApi: Send + Sync {
     /// GET /artists/{id}/relationships/trackProviders
     ///
     /// Retrieves trackProviders relationship.
-    async fn get_artist_track_providers<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_artist_track_providers<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<
         models::ArtistsTrackProvidersMultiRelationshipDataDocument,
@@ -235,19 +175,11 @@ pub trait ArtistsApi: Send + Sync {
     /// GET /artists/{id}/relationships/tracks
     ///
     /// Retrieves tracks relationship.
-    async fn get_artist_tracks<
-        'id,
-        'collapse_by,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_tracks<'id, 'collapse_by, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
         collapse_by: &'collapse_by str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistTracksError>>;
@@ -255,17 +187,10 @@ pub trait ArtistsApi: Send + Sync {
     /// GET /artists/{id}/relationships/videos
     ///
     /// Retrieves videos relationship.
-    async fn get_artist_videos<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_videos<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistVideosError>>;
@@ -571,17 +496,10 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves albums relationship.
-    async fn get_artist_albums<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_albums<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistAlbumsError>> {
@@ -597,7 +515,7 @@ impl ArtistsApi for ArtistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -750,17 +668,11 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves roles relationship.
-    async fn get_artist_artist_roles<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_artist_roles<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistArtistRolesError>>
     {
         let local_var_configuration = &self.configuration;
@@ -794,7 +706,7 @@ impl ArtistsApi for ArtistsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -840,18 +752,11 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves following relationship.
-    async fn get_artist_follower<
-        'id,
-        'viewer_context,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_artist_follower<'id, 'viewer_context, 'page_cursor, 'include>(
         &self,
         id: &'id str,
         viewer_context: Option<&'viewer_context str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsFollowingMultiRelationshipDataDocument, Error<GetArtistFollowerError>>
     {
@@ -871,7 +776,7 @@ impl ArtistsApi for ArtistsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("viewerContext", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -933,18 +838,11 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves followers relationship.
-    async fn get_artist_followers<
-        'id,
-        'viewer_context,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_artist_followers<'id, 'viewer_context, 'page_cursor, 'include>(
         &self,
         id: &'id str,
         viewer_context: Option<&'viewer_context str>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsFollowersMultiRelationshipDataDocument, Error<GetArtistFollowersError>>
     {
@@ -964,7 +862,7 @@ impl ArtistsApi for ArtistsApiClient {
             local_var_req_builder =
                 local_var_req_builder.query(&[("viewerContext", &param_value.to_string())]);
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1026,17 +924,11 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_artist_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistOwnersError>> {
         let local_var_configuration = &self.configuration;
 
@@ -1069,7 +961,7 @@ impl ArtistsApi for ArtistsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1115,19 +1007,12 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves profileArt relationship.
-    async fn get_artist_profile_art<
-        'id,
-        'country_code,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_profile_art<'id, 'country_code, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistProfileArtError>> {
         let local_var_configuration = &self.configuration;
 
@@ -1164,7 +1049,7 @@ impl ArtistsApi for ArtistsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1210,17 +1095,10 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves radio relationship.
-    async fn get_artist_radio<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_radio<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistRadioError>> {
@@ -1236,7 +1114,7 @@ impl ArtistsApi for ArtistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1305,17 +1183,10 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves similarArtists relationship.
-    async fn get_artist_similar_artists<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_similar_artists<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistSimilarArtistsError>>
@@ -1332,7 +1203,7 @@ impl ArtistsApi for ArtistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1401,16 +1272,10 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves trackProviders relationship.
-    async fn get_artist_track_providers<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'include,
-    >(
+    async fn get_artist_track_providers<'id, 'page_cursor, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         include: Option<Vec<String>>,
     ) -> Result<
         models::ArtistsTrackProvidersMultiRelationshipDataDocument,
@@ -1428,7 +1293,7 @@ impl ArtistsApi for ArtistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1493,19 +1358,11 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves tracks relationship.
-    async fn get_artist_tracks<
-        'id,
-        'collapse_by,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_tracks<'id, 'collapse_by, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
         collapse_by: &'collapse_by str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistTracksError>> {
@@ -1523,7 +1380,7 @@ impl ArtistsApi for ArtistsApiClient {
 
         local_var_req_builder =
             local_var_req_builder.query(&[("collapseBy", &collapse_by.to_string())]);
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -1592,17 +1449,10 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Retrieves videos relationship.
-    async fn get_artist_videos<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'include,
-    >(
+    async fn get_artist_videos<'id, 'page_cursor, 'country_code, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
     ) -> Result<models::ArtistsMultiRelationshipDataDocument, Error<GetArtistVideosError>> {
@@ -1618,7 +1468,7 @@ impl ArtistsApi for ArtistsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

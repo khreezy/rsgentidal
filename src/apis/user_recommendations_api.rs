@@ -37,16 +37,14 @@ pub trait UserRecommendationsApi: Send + Sync {
     /// Retrieves discoveryMixes relationship.
     async fn get_user_recommendation_discovery_mixes<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'locale,
         'include,
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
         include: Option<Vec<String>>,
@@ -58,18 +56,10 @@ pub trait UserRecommendationsApi: Send + Sync {
     /// GET /userRecommendations/{id}/relationships/myMixes
     ///
     /// Retrieves myMixes relationship.
-    async fn get_user_recommendation_my_mixes<
-        'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
-        'country_code,
-        'locale,
-        'include,
-    >(
+    async fn get_user_recommendation_my_mixes<'id, 'page_cursor, 'country_code, 'locale, 'include>(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
         include: Option<Vec<String>>,
@@ -83,16 +73,14 @@ pub trait UserRecommendationsApi: Send + Sync {
     /// Retrieves newArrivalMixes relationship.
     async fn get_user_recommendation_new_arrival_mixes<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'locale,
         'include,
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
         include: Option<Vec<String>>,
@@ -206,16 +194,14 @@ impl UserRecommendationsApi for UserRecommendationsApiClient {
     /// Retrieves discoveryMixes relationship.
     async fn get_user_recommendation_discovery_mixes<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'locale,
         'include,
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
         include: Option<Vec<String>>,
@@ -235,7 +221,7 @@ impl UserRecommendationsApi for UserRecommendationsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -307,16 +293,14 @@ impl UserRecommendationsApi for UserRecommendationsApiClient {
     /// Retrieves myMixes relationship.
     async fn get_user_recommendation_my_mixes<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'locale,
         'include,
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
         include: Option<Vec<String>>,
@@ -336,7 +320,7 @@ impl UserRecommendationsApi for UserRecommendationsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -408,16 +392,14 @@ impl UserRecommendationsApi for UserRecommendationsApiClient {
     /// Retrieves newArrivalMixes relationship.
     async fn get_user_recommendation_new_arrival_mixes<
         'id,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
         'country_code,
         'locale,
         'include,
     >(
         &self,
         id: &'id str,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
         country_code: Option<&'country_code str>,
         locale: Option<&'locale str>,
         include: Option<Vec<String>>,
@@ -437,7 +419,7 @@ impl UserRecommendationsApi for UserRecommendationsApiClient {
         let mut local_var_req_builder =
             local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

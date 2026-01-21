@@ -178,7 +178,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_playlist_cover_art
 
-> models::PlaylistsMultiRelationshipDataDocument get_playlist_cover_art(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::PlaylistsMultiRelationshipDataDocument get_playlist_cover_art(id, country_code, include, page_cursor)
 Get coverArt relationship (\"to-many\").
 
 Retrieves coverArt relationship.
@@ -191,7 +191,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Playlist id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: coverArt |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_playlist_items
 
-> models::PlaylistsItemsMultiRelationshipDataDocument get_playlist_items(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include)
+> models::PlaylistsItemsMultiRelationshipDataDocument get_playlist_items(id, page_cursor, country_code, include)
 Get items relationship (\"to-many\").
 
 Retrieves items relationship.
@@ -222,7 +222,7 @@ Retrieves items relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Playlist id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: items |  |
 
@@ -244,7 +244,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_playlist_owner_profiles
 
-> models::PlaylistsMultiRelationshipDataDocument get_playlist_owner_profiles(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::PlaylistsMultiRelationshipDataDocument get_playlist_owner_profiles(id, country_code, include, page_cursor)
 Get ownerProfiles relationship (\"to-many\").
 
 Retrieves ownerProfiles relationship.
@@ -257,7 +257,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Playlist id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: ownerProfiles |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_playlist_owners
 
-> models::PlaylistsMultiRelationshipDataDocument get_playlist_owners(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket)
+> models::PlaylistsMultiRelationshipDataDocument get_playlist_owners(id, country_code, include, page_cursor)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -290,7 +290,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Playlist id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 
 ### Return type
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_playlists
 
-> models::PlaylistsMultiResourceDataDocument get_playlists(page_left_square_bracket_cursor_right_square_bracket, sort, country_code, include, filter_left_square_bracket_id_right_square_bracket, filter_left_square_bracket_owners_id_right_square_bracket)
+> models::PlaylistsMultiResourceDataDocument get_playlists(page_cursor, sort, country_code, include, filter_left_square_bracket_id_right_square_bracket, filter_left_square_bracket_owners_id_right_square_bracket)
 Get multiple playlists.
 
 Retrieves multiple playlists by available filters, or without if applicable.
@@ -320,7 +320,7 @@ Retrieves multiple playlists by available filters, or without if applicable.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **sort** | Option<[**Vec<String>**](String.md)> | Values prefixed with \"-\" are sorted descending; values without it are sorted ascending. |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: coverArt, items, ownerProfiles, owners |  |
@@ -435,4 +435,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-

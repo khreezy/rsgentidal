@@ -37,16 +37,14 @@ pub trait SearchSuggestionsApi: Send + Sync {
         'explicit_filter,
         'country_code,
         'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::SearchSuggestionsMultiRelationshipDataDocument,
         Error<GetSearchSuggestionDirectHitsError>,
@@ -161,16 +159,14 @@ impl SearchSuggestionsApi for SearchSuggestionsApiClient {
         'explicit_filter,
         'country_code,
         'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
+        'page_cursor,
     >(
         &self,
         id: &'id str,
         explicit_filter: Option<&'explicit_filter str>,
         country_code: Option<&'country_code str>,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::SearchSuggestionsMultiRelationshipDataDocument,
         Error<GetSearchSuggestionDirectHitsError>,
@@ -214,7 +210,7 @@ impl SearchSuggestionsApi for SearchSuggestionsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

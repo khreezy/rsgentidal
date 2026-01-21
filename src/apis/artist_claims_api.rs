@@ -39,17 +39,11 @@ pub trait ArtistClaimsApi: Send + Sync {
     /// GET /artistClaims/{id}/relationships/acceptedArtists
     ///
     /// Retrieves acceptedArtists relationship.
-    async fn get_artist_claim_accepted_artists<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_claim_accepted_artists<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::ArtistClaimsMultiRelationshipDataDocument,
         Error<GetArtistClaimAcceptedArtistsError>,
@@ -58,33 +52,21 @@ pub trait ArtistClaimsApi: Send + Sync {
     /// GET /artistClaims/{id}/relationships/owners
     ///
     /// Retrieves owners relationship.
-    async fn get_artist_claim_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_claim_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistClaimsMultiRelationshipDataDocument, Error<GetArtistClaimOwnersError>>;
 
     /// GET /artistClaims/{id}/relationships/recommendedArtists
     ///
     /// Retrieves recommendedArtists relationship.
-    async fn get_artist_claim_recommended_artists<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_claim_recommended_artists<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::ArtistClaimsMultiRelationshipDataDocument,
         Error<GetArtistClaimRecommendedArtistsError>,
@@ -263,17 +245,11 @@ impl ArtistClaimsApi for ArtistClaimsApiClient {
     }
 
     /// Retrieves acceptedArtists relationship.
-    async fn get_artist_claim_accepted_artists<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_claim_accepted_artists<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::ArtistClaimsMultiRelationshipDataDocument,
         Error<GetArtistClaimAcceptedArtistsError>,
@@ -309,7 +285,7 @@ impl ArtistClaimsApi for ArtistClaimsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -352,17 +328,11 @@ impl ArtistClaimsApi for ArtistClaimsApiClient {
     }
 
     /// Retrieves owners relationship.
-    async fn get_artist_claim_owners<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_claim_owners<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<models::ArtistClaimsMultiRelationshipDataDocument, Error<GetArtistClaimOwnersError>>
     {
         let local_var_configuration = &self.configuration;
@@ -396,7 +366,7 @@ impl ArtistClaimsApi for ArtistClaimsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }
@@ -439,17 +409,11 @@ impl ArtistClaimsApi for ArtistClaimsApiClient {
     }
 
     /// Retrieves recommendedArtists relationship.
-    async fn get_artist_claim_recommended_artists<
-        'id,
-        'include,
-        'page_left_square_bracket_cursor_right_square_bracket,
-    >(
+    async fn get_artist_claim_recommended_artists<'id, 'include, 'page_cursor>(
         &self,
         id: &'id str,
         include: Option<Vec<String>>,
-        page_left_square_bracket_cursor_right_square_bracket: Option<
-            &'page_left_square_bracket_cursor_right_square_bracket str,
-        >,
+        page_cursor: Option<&'page_cursor str>,
     ) -> Result<
         models::ArtistClaimsMultiRelationshipDataDocument,
         Error<GetArtistClaimRecommendedArtistsError>,
@@ -485,7 +449,7 @@ impl ArtistClaimsApi for ArtistClaimsApiClient {
                 )]),
             };
         }
-        if let Some(ref param_value) = page_left_square_bracket_cursor_right_square_bracket {
+        if let Some(ref param_value) = page_cursor {
             local_var_req_builder =
                 local_var_req_builder.query(&[("page[cursor]", &param_value.to_string())]);
         }

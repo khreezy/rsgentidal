@@ -118,7 +118,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_artists
 
-> models::AlbumsMultiRelationshipDataDocument get_album_artists(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::AlbumsMultiRelationshipDataDocument get_album_artists(id, page_cursor, country_code, include, share_code)
 Get artists relationship (\"to-many\").
 
 Retrieves artists relationship.
@@ -129,7 +129,7 @@ Retrieves artists relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: artists |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -152,7 +152,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_cover_art
 
-> models::AlbumsMultiRelationshipDataDocument get_album_cover_art(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::AlbumsMultiRelationshipDataDocument get_album_cover_art(id, page_cursor, country_code, include, share_code)
 Get coverArt relationship (\"to-many\").
 
 Retrieves coverArt relationship.
@@ -163,7 +163,7 @@ Retrieves coverArt relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: coverArt |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -186,7 +186,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_genres
 
-> models::AlbumsMultiRelationshipDataDocument get_album_genres(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::AlbumsMultiRelationshipDataDocument get_album_genres(id, page_cursor, country_code, include, share_code)
 Get genres relationship (\"to-many\").
 
 Retrieves genres relationship.
@@ -197,7 +197,7 @@ Retrieves genres relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: genres |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -220,7 +220,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_items
 
-> models::AlbumsItemsMultiRelationshipDataDocument get_album_items(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::AlbumsItemsMultiRelationshipDataDocument get_album_items(id, page_cursor, country_code, include, share_code)
 Get items relationship (\"to-many\").
 
 Retrieves items relationship.
@@ -231,7 +231,7 @@ Retrieves items relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: items |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -254,7 +254,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_owners
 
-> models::AlbumsMultiRelationshipDataDocument get_album_owners(id, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::AlbumsMultiRelationshipDataDocument get_album_owners(id, include, page_cursor, share_code)
 Get owners relationship (\"to-many\").
 
 Retrieves owners relationship.
@@ -266,7 +266,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: owners |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -287,7 +287,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_providers
 
-> models::AlbumsMultiRelationshipDataDocument get_album_providers(id, country_code, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::AlbumsMultiRelationshipDataDocument get_album_providers(id, country_code, include, page_cursor, share_code)
 Get providers relationship (\"to-many\").
 
 Retrieves providers relationship.
@@ -300,7 +300,7 @@ Name | Type | Description  | Required | Notes
 **id** | **String** | Album id | [required] |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: providers |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -354,7 +354,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_album_suggested_cover_arts
 
-> models::AlbumsSuggestedCoverArtsMultiRelationshipDataDocument get_album_suggested_cover_arts(id, include, page_left_square_bracket_cursor_right_square_bracket, share_code)
+> models::AlbumsSuggestedCoverArtsMultiRelationshipDataDocument get_album_suggested_cover_arts(id, include, page_cursor, share_code)
 Get suggestedCoverArts relationship (\"to-many\").
 
 Retrieves suggestedCoverArts relationship.
@@ -366,7 +366,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: suggestedCoverArts |  |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
 
 ### Return type
@@ -387,7 +387,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_albums
 
-> models::AlbumsMultiResourceDataDocument get_albums(page_left_square_bracket_cursor_right_square_bracket, country_code, include, filter_left_square_bracket_barcode_id_right_square_bracket, filter_left_square_bracket_id_right_square_bracket, filter_left_square_bracket_owners_id_right_square_bracket, share_code)
+> models::AlbumsMultiResourceDataDocument get_albums(page_cursor, country_code, include, filter_left_square_bracket_barcode_id_right_square_bracket, filter_left_square_bracket_id_right_square_bracket, filter_left_square_bracket_owners_id_right_square_bracket, share_code)
 Get multiple albums.
 
 Retrieves multiple albums by available filters, or without if applicable.
@@ -397,7 +397,7 @@ Retrieves multiple albums by available filters, or without if applicable.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: artists, coverArt, genres, items, owners, providers, replacement, similarAlbums, suggestedCoverArts |  |
 **filter_left_square_bracket_barcode_id_right_square_bracket** | Option<[**Vec<String>**](String.md)> | Barcode Id |  |
@@ -423,7 +423,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_similar_albums
 
-> models::AlbumsMultiRelationshipDataDocument get_similar_albums(id, page_left_square_bracket_cursor_right_square_bracket, country_code, include, share_code)
+> models::AlbumsMultiRelationshipDataDocument get_similar_albums(id, page_cursor, country_code, include, share_code)
 Get similarAlbums relationship (\"to-many\").
 
 Retrieves similarAlbums relationship.
@@ -434,7 +434,7 @@ Retrieves similarAlbums relationship.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Album id | [required] |
-**page_left_square_bracket_cursor_right_square_bracket** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
+**page_cursor** | Option<**String**> | Server-generated cursor value pointing a certain page of items. Optional, targets first page if not specified |  |
 **country_code** | Option<**String**> | ISO 3166-1 alpha-2 country code |  |
 **include** | Option<[**Vec<String>**](String.md)> | Allows the client to customize which related resources should be returned. Available options: similarAlbums |  |
 **share_code** | Option<**String**> | Share code that grants access to UNLISTED resources. When provided, allows non-owners to access resources that would otherwise be restricted. |  |
@@ -546,4 +546,3 @@ Name | Type | Description  | Required | Notes
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
