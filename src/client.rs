@@ -1,17 +1,19 @@
 use std::ops::Deref;
 use std::sync::Arc;
+use std::vec::IntoIter;
 
 use crate::apis::configuration::Configuration;
 use crate::apis::{Api, ApiClient};
 use chrono::Utc;
+use oauth2::basic::BasicTokenType;
 use oauth2::http::{Extensions, HeaderValue};
 use oauth2::{
     basic::BasicClient, EndpointNotSet, EndpointSet, StandardRevocableToken::RefreshToken,
     TokenResponse,
 };
 use oauth2::{
-    AuthType, AuthUrl, AuthorizationCode, ClientId, CsrfToken, PkceCodeChallenge, PkceCodeVerifier,
-    RedirectUrl, Scope, TokenUrl,
+    AuthType, AuthUrl, AuthorizationCode, ClientId, CsrfToken, EmptyExtraTokenFields,
+    PkceCodeChallenge, PkceCodeVerifier, RedirectUrl, Scope, StandardTokenResponse, TokenUrl,
 };
 use reqwest::{Request, Response, StatusCode};
 use reqwest_middleware::{ClientBuilder, Extension, Middleware, Next};
@@ -57,6 +59,22 @@ pub struct Token {
     pub expiry: String,
 }
 
+impl From<StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>> for Token {
+    fn from(value: StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>) -> Self {
+        let expires_in = value.expires_in().unwrap_or_default();
+
+        let expiry = Utc::now() + expires_in;
+
+        Token {
+            access_token: value.access_token().into_secret(),
+            refresh_token: value.refresh_token().unwrap_or_default().into_secret(),
+            expiry: expiry.to_rfc3339(),
+        }
+    }
+}
+
+// TidalClient configuration. `auth_token` is optional
+// so that the client can be used w
 pub struct TidalClientConfig {
     pub auth_token: Option<Token>,
     pub oauth_config: OAuthConfig,
@@ -144,6 +162,13 @@ impl Deref for TidalClient {
     }
 }
 
+fn to_scopes(scopes: Vec<&str>) -> Vec<Scope> {
+    return scopes
+        .into_iter()
+        .map(|s| -> Scope { Scope::new(s.to_string()) })
+        .collect();
+}
+
 impl TidalClient {
     pub fn new(config: TidalClientConfig) -> Result<Self> {
         let oauth_http_client = match oauth2::reqwest::ClientBuilder::new()
@@ -196,6 +221,13 @@ impl TidalClient {
         .set_auth_uri(auth_url)
         .set_token_uri(token_url);
 
+        let oauth_client = match config.oauth_config.client_secret {
+            Some(client_secret) => {
+                oauth_client.set_client_secret(oauth2::ClientSecret::new(client_secret))
+            }
+            None => oauth_client,
+        };
+
         let api_http_client = reqwest::Client::new();
 
         let api_client = match config.auth_token {
@@ -247,18 +279,31 @@ impl TidalClient {
         code_challenge: PkceCodeChallenge,
         scopes: Vec<&str>,
     ) -> (String, String) {
-        let scopes = scopes
-            .into_iter()
-            .map(|scope| -> Scope { Scope::new(scope.to_string()) });
-
         let (url, csrf_token) = self
             .oauth_client
             .authorize_url(CsrfToken::new_random)
             .set_pkce_challenge(code_challenge)
-            .add_scopes(scopes)
+            .add_scopes(to_scopes(scopes))
             .url();
 
         return (url.to_string(), csrf_token.into_secret());
+    }
+
+    /// Exchanges client_id and client_secret for an access token.
+    pub async fn exchange_client_credentials_for_token(&self, scopes: Vec<&str>) -> Result<Token> {
+        match self
+            .oauth_client
+            .exchange_client_credentials()
+            .add_scopes(to_scopes(scopes))
+            .request_async(&self.oauth_http_client)
+            .await
+        {
+            Ok(resp) => Ok(resp.into()),
+            Err(e) => Err(TidalClientError {
+                msg: String::from("failed to exchange client credentials for token"),
+                cause: e.to_string(),
+            }),
+        }
     }
 
     /// Calls the /token URL and returns an access and refresh token if the

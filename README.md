@@ -75,13 +75,50 @@ let config_with_token = TidalClientConfig {
         client_secret: None
     }
     
-    auth_token: Some(token) // we haven't authorized yet, so we  don't have  this.
+    auth_token: Some(token)
 }
 
 let client_with_token =  TidalClient::new(config_with_token).unwrap();
 
 let resp = client_with_token.tracks_api().get_track(<some track id>);
 ```
+
+### Client Credentials flow
+
+```rust
+let client_id = "<your client id>";
+let client_secret = "<your client secret>";
+
+let redirect_uri = "";
+
+let config = TidalClientConfig {
+    oauth_config: OAuthConfig {
+        redirect_uri,
+        client_id,
+        client_secret: Some(client_secret),
+    }
+
+    auth_token: None // we haven't authorized yet, so we  don't have  this.
+};
+
+let scopes = vec!["user.read"];
+let token = client.exchange_client_credentials_for_token(scopes).unwrap();
+
+let config_with_token = TidalClientConfig {
+    oauth_config: OAuthConfig {
+        redirect_uri,
+        client_id,
+        client_secret: None
+    }
+
+    auth_token: Some(token)
+}
+
+let client_with_token =  TidalClient::new(config_with_token).unwrap();
+
+let resp = client_with_token.tracks_api().get_track(<some track id>);
+```
+
 
 ## Documentation for API Endpoints
 
