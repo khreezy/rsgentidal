@@ -66,19 +66,11 @@ let config = TidalClientConfig {
     auth_token: None // we haven't authorized yet, so we  don't have  this.
 }
 
+let client = TidalClient::new(config_with_token).unwrap();
+
 let token: Token = client.exchange_code_for_token(verifier, code).unwrap() // again, not in prod
 
-let config_with_token = TidalClientConfig {
-    oauth_config: OAuthConfig {
-        redirect_uri,
-        client_id,
-        client_secret: None
-    }
-    
-    auth_token: Some(token)
-}
-
-let client_with_token =  TidalClient::new(config_with_token).unwrap();
+let client_with_token =  client.with_token(config_with_token).unwrap();
 
 let resp = client_with_token.tracks_api().get_track(<some track id>);
 ```
