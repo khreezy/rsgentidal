@@ -21,6 +21,7 @@ pub trait ArtworksApi: Send + Sync {
     /// POST /artworks
     ///
     /// Creates a new artwork.
+    #[cfg(feature = "internal")]
     async fn create_artwork<'artwork_create_operation_payload>(
         &self,
         artwork_create_operation_payload: Option<models::ArtworkCreateOperationPayload>,
@@ -75,6 +76,7 @@ impl ArtworksApiClient {
 #[async_trait]
 impl ArtworksApi for ArtworksApiClient {
     /// Creates a new artwork.
+    #[cfg(feature = "internal")]
     async fn create_artwork<'artwork_create_operation_payload>(
         &self,
         artwork_create_operation_payload: Option<models::ArtworkCreateOperationPayload>,
@@ -398,6 +400,7 @@ impl ArtworksApi for ArtworksApiClient {
 /// struct for typed errors of method [`ArtworksApi::create_artwork`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum CreateArtworkError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),

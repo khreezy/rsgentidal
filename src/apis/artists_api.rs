@@ -21,6 +21,7 @@ pub trait ArtistsApi: Send + Sync {
     /// POST /artists/{id}/relationships/following
     ///
     /// Adds item(s) to following relationship.
+    #[cfg(feature = "internal")]
     async fn add_artist_followers<
         'id,
         'country_code,
@@ -37,6 +38,7 @@ pub trait ArtistsApi: Send + Sync {
     /// POST /artists
     ///
     /// Creates a new artist.
+    #[cfg(feature = "internal")]
     async fn create_artist<'artist_create_operation_payload>(
         &self,
         artist_create_operation_payload: Option<models::ArtistCreateOperationPayload>,
@@ -45,6 +47,7 @@ pub trait ArtistsApi: Send + Sync {
     /// DELETE /artists/{id}/relationships/following
     ///
     /// Deletes item(s) from following relationship.
+    #[cfg(feature = "internal")]
     async fn delete_artist_followers<'id, 'artist_following_relationship_remove_operation_payload>(
         &self,
         id: &'id str,
@@ -214,6 +217,7 @@ pub trait ArtistsApi: Send + Sync {
     /// PATCH /artists/{id}
     ///
     /// Updates existing artist.
+    #[cfg(feature = "internal")]
     async fn patch_artist<'id, 'artist_update_body>(
         &self,
         id: &'id str,
@@ -223,6 +227,7 @@ pub trait ArtistsApi: Send + Sync {
     /// PATCH /artists/{id}/relationships/profileArt
     ///
     /// Updates profileArt relationship.
+    #[cfg(feature = "internal")]
     async fn patch_artist_profile_art<
         'id,
         'artist_profile_art_relationship_update_operation_payload,
@@ -249,6 +254,7 @@ impl ArtistsApiClient {
 #[async_trait]
 impl ArtistsApi for ArtistsApiClient {
     /// Adds item(s) to following relationship.
+    #[cfg(feature = "internal")]
     async fn add_artist_followers<
         'id,
         'country_code,
@@ -308,6 +314,7 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Creates a new artist.
+    #[cfg(feature = "internal")]
     async fn create_artist<'artist_create_operation_payload>(
         &self,
         artist_create_operation_payload: Option<models::ArtistCreateOperationPayload>,
@@ -360,6 +367,7 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Deletes item(s) from following relationship.
+    #[cfg(feature = "internal")]
     async fn delete_artist_followers<
         'id,
         'artist_following_relationship_remove_operation_payload,
@@ -1660,6 +1668,7 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Updates existing artist.
+    #[cfg(feature = "internal")]
     async fn patch_artist<'id, 'artist_update_body>(
         &self,
         id: &'id str,
@@ -1707,6 +1716,7 @@ impl ArtistsApi for ArtistsApiClient {
     }
 
     /// Updates profileArt relationship.
+    #[cfg(feature = "internal")]
     async fn patch_artist_profile_art<
         'id,
         'artist_profile_art_relationship_update_operation_payload,
@@ -1763,6 +1773,7 @@ impl ArtistsApi for ArtistsApiClient {
 /// struct for typed errors of method [`ArtistsApi::add_artist_followers`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum AddArtistFollowersError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1778,6 +1789,7 @@ pub enum AddArtistFollowersError {
 /// struct for typed errors of method [`ArtistsApi::create_artist`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum CreateArtistError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1793,6 +1805,7 @@ pub enum CreateArtistError {
 /// struct for typed errors of method [`ArtistsApi::delete_artist_followers`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum DeleteArtistFollowersError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -2018,6 +2031,7 @@ pub enum GetArtistsError {
 /// struct for typed errors of method [`ArtistsApi::patch_artist`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum PatchArtistError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -2033,6 +2047,7 @@ pub enum PatchArtistError {
 /// struct for typed errors of method [`ArtistsApi::patch_artist_profile_art`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum PatchArtistProfileArtError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
