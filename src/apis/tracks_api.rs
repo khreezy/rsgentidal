@@ -21,6 +21,7 @@ pub trait TracksApi: Send + Sync {
     /// POST /tracks
     ///
     /// Creates a new track.
+    #[cfg(feature = "internal")]
     async fn create_track<'track_create_operation_payload>(
         &self,
         track_create_operation_payload: Option<models::TrackCreateOperationPayload>,
@@ -29,6 +30,7 @@ pub trait TracksApi: Send + Sync {
     /// DELETE /tracks/{id}
     ///
     /// Deletes existing track.
+    #[cfg(feature = "internal")]
     async fn delete_track<'id>(&self, id: &'id str) -> Result<(), Error<DeleteTrackError>>;
 
     /// GET /tracks/{id}
@@ -57,6 +59,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/genres
     ///
     /// Retrieves genres relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_genres<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -69,6 +72,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/lyrics
     ///
     /// Retrieves lyrics relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_lyrics<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -114,6 +118,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/replacement
     ///
     /// Retrieves replacement relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_replacement_relationship<'id, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -128,6 +133,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/shares
     ///
     /// Retrieves shares relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_shares<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -151,6 +157,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/sourceFile
     ///
     /// Retrieves sourceFile relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_track_source_file<'id, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -161,6 +168,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/trackStatistics
     ///
     /// Retrieves trackStatistics relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_track_statistics<'id, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -193,6 +201,7 @@ pub trait TracksApi: Send + Sync {
     /// PATCH /tracks/{id}
     ///
     /// Updates existing track.
+    #[cfg(feature = "internal")]
     async fn patch_track<'id, 'track_update_operation_payload>(
         &self,
         id: &'id str,
@@ -202,6 +211,7 @@ pub trait TracksApi: Send + Sync {
     /// PATCH /tracks/{id}/relationships/albums
     ///
     /// Updates albums relationship.
+    #[cfg(feature = "internal")]
     async fn patch_track_albums<'id, 'track_albums_relationship_update_operation_payload>(
         &self,
         id: &'id str,
@@ -213,6 +223,7 @@ pub trait TracksApi: Send + Sync {
     /// GET /tracks/{id}/relationships/artists
     ///
     /// Retrieves artists relationship.
+    #[cfg(feature = "internal")]
     async fn patch_track_artists<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -237,6 +248,7 @@ impl TracksApiClient {
 #[async_trait]
 impl TracksApi for TracksApiClient {
     /// Creates a new track.
+    #[cfg(feature = "internal")]
     async fn create_track<'track_create_operation_payload>(
         &self,
         track_create_operation_payload: Option<models::TrackCreateOperationPayload>,
@@ -289,6 +301,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Deletes existing track.
+    #[cfg(feature = "internal")]
     async fn delete_track<'id>(&self, id: &'id str) -> Result<(), Error<DeleteTrackError>> {
         let local_var_configuration = &self.configuration;
 
@@ -512,6 +525,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves genres relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_genres<'id, 'country_code, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -605,6 +619,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves lyrics relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_lyrics<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -962,6 +977,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves replacement relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_replacement_relationship<'id, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -1053,6 +1069,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves shares relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_shares<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -1232,6 +1249,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves sourceFile relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_track_source_file<'id, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -1316,6 +1334,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves trackStatistics relationship.
+    #[cfg(feature = "internal")]
     async fn get_track_track_statistics<'id, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -1553,6 +1572,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Updates existing track.
+    #[cfg(feature = "internal")]
     async fn patch_track<'id, 'track_update_operation_payload>(
         &self,
         id: &'id str,
@@ -1600,6 +1620,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Updates albums relationship.
+    #[cfg(feature = "internal")]
     async fn patch_track_albums<'id, 'track_albums_relationship_update_operation_payload>(
         &self,
         id: &'id str,
@@ -1650,6 +1671,7 @@ impl TracksApi for TracksApiClient {
     }
 
     /// Retrieves artists relationship.
+    #[cfg(feature = "internal")]
     async fn patch_track_artists<'id, 'page_cursor, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -1746,6 +1768,7 @@ impl TracksApi for TracksApiClient {
 /// struct for typed errors of method [`TracksApi::create_track`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum CreateTrackError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1761,6 +1784,7 @@ pub enum CreateTrackError {
 /// struct for typed errors of method [`TracksApi::delete_track`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum DeleteTrackError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1806,6 +1830,7 @@ pub enum GetTrackAlbumsError {
 /// struct for typed errors of method [`TracksApi::get_track_genres`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum GetTrackGenresError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1821,6 +1846,7 @@ pub enum GetTrackGenresError {
 /// struct for typed errors of method [`TracksApi::get_track_lyrics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum GetTrackLyricsError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1881,6 +1907,7 @@ pub enum GetTrackRadioError {
 /// struct for typed errors of method [`TracksApi::get_track_replacement_relationship`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum GetTrackReplacementRelationshipError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1896,6 +1923,7 @@ pub enum GetTrackReplacementRelationshipError {
 /// struct for typed errors of method [`TracksApi::get_track_shares`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum GetTrackSharesError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1926,6 +1954,7 @@ pub enum GetTrackSimilarTracksError {
 /// struct for typed errors of method [`TracksApi::get_track_track_source_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum GetTrackTrackSourceFileError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1941,6 +1970,7 @@ pub enum GetTrackTrackSourceFileError {
 /// struct for typed errors of method [`TracksApi::get_track_track_statistics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum GetTrackTrackStatisticsError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1971,6 +2001,7 @@ pub enum GetTracksError {
 /// struct for typed errors of method [`TracksApi::patch_track`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum PatchTrackError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1986,6 +2017,7 @@ pub enum PatchTrackError {
 /// struct for typed errors of method [`TracksApi::patch_track_albums`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum PatchTrackAlbumsError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -2001,6 +2033,7 @@ pub enum PatchTrackAlbumsError {
 /// struct for typed errors of method [`TracksApi::patch_track_artists`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum PatchTrackArtistsError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),

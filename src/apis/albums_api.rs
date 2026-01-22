@@ -21,6 +21,7 @@ pub trait AlbumsApi: Send + Sync {
     /// POST /albums
     ///
     /// Creates a new album.
+    #[cfg(feature = "internal")]
     async fn create_album<'album_create_operation_payload>(
         &self,
         album_create_operation_payload: Option<models::AlbumCreateOperationPayload>,
@@ -29,6 +30,7 @@ pub trait AlbumsApi: Send + Sync {
     /// DELETE /albums/{id}
     ///
     /// Deletes existing album.
+    #[cfg(feature = "internal")]
     async fn delete_album<'id>(&self, id: &'id str) -> Result<(), Error<DeleteAlbumError>>;
 
     /// GET /albums/{id}
@@ -116,6 +118,7 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/replacement
     ///
     /// Retrieves replacement relationship.
+    #[cfg(feature = "internal")]
     async fn get_album_replacement_replationship<'id, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -130,6 +133,7 @@ pub trait AlbumsApi: Send + Sync {
     /// GET /albums/{id}/relationships/suggestedCoverArts
     ///
     /// Retrieves suggestedCoverArts relationship.
+    #[cfg(feature = "internal")]
     async fn get_album_suggested_cover_arts<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -178,6 +182,7 @@ pub trait AlbumsApi: Send + Sync {
     /// PATCH /albums/{id}/relationships/items
     ///
     /// Updates items relationship.
+    #[cfg(feature = "internal")]
     async fn patch_a_lbum_items<'id, 'album_items_relationship_update_operation_payload>(
         &self,
         id: &'id str,
@@ -189,6 +194,7 @@ pub trait AlbumsApi: Send + Sync {
     /// PATCH /albums/{id}
     ///
     /// Updates existing album.
+    #[cfg(feature = "internal")]
     async fn patch_album<'id, 'album_update_operation_payload>(
         &self,
         id: &'id str,
@@ -198,6 +204,7 @@ pub trait AlbumsApi: Send + Sync {
     /// PATCH /albums/{id}/relationships/coverArt
     ///
     /// Updates coverArt relationship.
+    #[cfg(feature = "internal")]
     async fn patch_album_cover_art<'id, 'album_cover_art_relationship_update_operation_payload>(
         &self,
         id: &'id str,
@@ -221,6 +228,7 @@ impl AlbumsApiClient {
 #[async_trait]
 impl AlbumsApi for AlbumsApiClient {
     /// Creates a new album.
+    #[cfg(feature = "internal")]
     async fn create_album<'album_create_operation_payload>(
         &self,
         album_create_operation_payload: Option<models::AlbumCreateOperationPayload>,
@@ -273,6 +281,7 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Deletes existing album.
+    #[cfg(feature = "internal")]
     async fn delete_album<'id>(&self, id: &'id str) -> Result<(), Error<DeleteAlbumError>> {
         let local_var_configuration = &self.configuration;
 
@@ -956,6 +965,7 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves replacement relationship.
+    #[cfg(feature = "internal")]
     async fn get_album_replacement_replationship<'id, 'country_code, 'include, 'share_code>(
         &self,
         id: &'id str,
@@ -1047,6 +1057,7 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Retrieves suggestedCoverArts relationship.
+    #[cfg(feature = "internal")]
     async fn get_album_suggested_cover_arts<'id, 'include, 'page_cursor, 'share_code>(
         &self,
         id: &'id str,
@@ -1384,6 +1395,7 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Updates items relationship.
+    #[cfg(feature = "internal")]
     async fn patch_a_lbum_items<'id, 'album_items_relationship_update_operation_payload>(
         &self,
         id: &'id str,
@@ -1434,6 +1446,7 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Updates existing album.
+    #[cfg(feature = "internal")]
     async fn patch_album<'id, 'album_update_operation_payload>(
         &self,
         id: &'id str,
@@ -1481,6 +1494,7 @@ impl AlbumsApi for AlbumsApiClient {
     }
 
     /// Updates coverArt relationship.
+    #[cfg(feature = "internal")]
     async fn patch_album_cover_art<'id, 'album_cover_art_relationship_update_operation_payload>(
         &self,
         id: &'id str,
@@ -1534,6 +1548,7 @@ impl AlbumsApi for AlbumsApiClient {
 /// struct for typed errors of method [`AlbumsApi::create_album`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum CreateAlbumError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1549,6 +1564,7 @@ pub enum CreateAlbumError {
 /// struct for typed errors of method [`AlbumsApi::delete_album`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[cfg(feature = "internal")]
 pub enum DeleteAlbumError {
     Status400(models::Default400ResponseBody),
     Status404(models::Default404ResponseBody),
@@ -1667,6 +1683,7 @@ pub enum GetAlbumProvidersError {
 }
 
 /// struct for typed errors of method [`AlbumsApi::get_album_replacement_replationship`]
+#[cfg(feature = "internal")]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAlbumReplacementReplationshipError {
@@ -1682,6 +1699,7 @@ pub enum GetAlbumReplacementReplationshipError {
 }
 
 /// struct for typed errors of method [`AlbumsApi::get_album_suggested_cover_arts`]
+#[cfg(feature = "internal")]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAlbumSuggestedCoverArtsError {
@@ -1727,6 +1745,7 @@ pub enum GetSimilarAlbumsError {
 }
 
 /// struct for typed errors of method [`AlbumsApi::patch_a_lbum_items`]
+#[cfg(feature = "internal")]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PatchALbumItemsError {
@@ -1742,6 +1761,7 @@ pub enum PatchALbumItemsError {
 }
 
 /// struct for typed errors of method [`AlbumsApi::patch_album`]
+#[cfg(feature = "internal")]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PatchAlbumError {
@@ -1757,6 +1777,7 @@ pub enum PatchAlbumError {
 }
 
 /// struct for typed errors of method [`AlbumsApi::patch_album_cover_art`]
+#[cfg(feature = "internal")]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PatchAlbumCoverArtError {
