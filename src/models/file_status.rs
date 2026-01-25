@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileStatus : File status
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct FileStatus {
     /// Moderation status for file
     #[serde(rename = "moderationFileStatus")]

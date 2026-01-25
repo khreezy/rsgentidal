@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BarcodeId : Barcode Id
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct BarcodeId {
     #[serde(rename = "value")]
     pub value: String,

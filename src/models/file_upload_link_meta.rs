@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileUploadLinkMeta : metadata for upload link
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct FileUploadLinkMeta {
     /// HTTP headers that must be added to the operation
     #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtistBiographiesAttributes {
     /// Boolean to indicate if the biography is editable (source = tidal or artist)
     #[serde(rename = "editable")]

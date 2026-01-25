@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ExternalLinkMeta : metadata about an external link
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ExternalLinkMeta {
     #[serde(rename = "type")]
     pub r#type: Type,

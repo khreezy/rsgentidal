@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LinksMeta : Non-standard meta information for links
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct LinksMeta {
     /// Only cursor part of next link
     #[serde(rename = "nextCursor")]

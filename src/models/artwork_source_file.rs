@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ArtworkSourceFile : Artwork source file
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtworkSourceFile {
     /// MD5 hash of file to be uploaded
     #[serde(rename = "md5Hash")]

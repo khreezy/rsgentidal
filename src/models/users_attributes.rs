@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct UsersAttributes {
     /// ISO 3166-1 alpha-2 country code
     #[serde(rename = "country")]

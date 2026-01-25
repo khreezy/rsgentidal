@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ArtworkFile : Artwork files
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtworkFile {
     /// Artwork file href
     #[serde(rename = "href")]

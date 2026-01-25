@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct TrackFilesAttributes {
     #[serde(rename = "albumAudioNormalizationData", skip_serializing_if = "Option::is_none")]
     pub album_audio_normalization_data: Option<Box<models::AudioNormalizationData>>,

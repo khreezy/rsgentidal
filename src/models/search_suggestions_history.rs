@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SearchSuggestionsHistory : Suggestions from search history
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct SearchSuggestionsHistory {
     #[serde(rename = "highlights", skip_serializing_if = "Option::is_none")]
     pub highlights: Option<Vec<models::SearchSuggestionsHighlights>>,

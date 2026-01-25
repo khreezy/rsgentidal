@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ArtistsFollowersResourceMetaViewerContext : Optional context about the relationship
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtistsFollowersResourceMetaViewerContext {
     /// Boolean to indicate if the artist is following my artist
     #[serde(rename = "followsMyArtist", skip_serializing_if = "Option::is_none")]

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct SearchSuggestionsAttributes {
     /// Suggestions from search history
     #[serde(rename = "history", skip_serializing_if = "Option::is_none")]
