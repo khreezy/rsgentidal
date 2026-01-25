@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct VideosAttributes {
     /// Available usage for this video
     #[serde(rename = "availability", skip_serializing_if = "Option::is_none")]

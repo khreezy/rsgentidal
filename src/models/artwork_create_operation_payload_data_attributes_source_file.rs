@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtworkCreateOperationPayloadDataAttributesSourceFile {
     #[serde(rename = "md5Hash")]
     pub md5_hash: String,

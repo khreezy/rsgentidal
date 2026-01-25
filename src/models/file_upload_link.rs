@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileUploadLink : Upload link
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct FileUploadLink {
     /// Href to upload actual file to
     #[serde(rename = "href")]

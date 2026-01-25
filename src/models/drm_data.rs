@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DrmData : DRM data. Absence implies no DRM.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct DrmData {
     #[serde(rename = "certificateUrl", skip_serializing_if = "Option::is_none")]
     pub certificate_url: Option<String>,

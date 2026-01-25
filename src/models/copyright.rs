@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Copyright : Copyright information
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct Copyright {
     #[serde(rename = "text")]
     pub text: String,

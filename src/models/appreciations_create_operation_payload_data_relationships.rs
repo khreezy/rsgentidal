@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct AppreciationsCreateOperationPayloadDataRelationships {
     #[serde(rename = "appreciatedItems")]
     pub appreciated_items: Box<models::AppreciationsCreateOperationPayloadDataRelationshipsAppreciatedItem>,

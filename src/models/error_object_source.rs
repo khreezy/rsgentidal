@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ErrorObjectSource {
     /// string indicating the name of a single request header which caused the error
     #[serde(rename = "header", skip_serializing_if = "Option::is_none")]

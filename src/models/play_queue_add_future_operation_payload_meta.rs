@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct PlayQueueAddFutureOperationPayloadMeta {
     #[serde(rename = "batchId", skip_serializing_if = "Option::is_none")]
     pub batch_id: Option<uuid::Uuid>,

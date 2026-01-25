@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AudioNormalizationData : Track normalization data
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct AudioNormalizationData {
     #[serde(rename = "peakAmplitude", skip_serializing_if = "Option::is_none")]
     pub peak_amplitude: Option<f32>,

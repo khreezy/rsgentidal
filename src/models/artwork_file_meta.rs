@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ArtworkFileMeta : Metadata about an artwork file
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtworkFileMeta {
     /// Height (in pixels)
     #[serde(rename = "height")]

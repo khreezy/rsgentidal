@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct Default500ResponseBody {
     #[serde(rename = "errors")]
     pub errors: Vec<models::Default500ResponseBodyErrorsInner>,

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct ArtistBiographiesResourceObject {
     #[serde(rename = "attributes", skip_serializing_if = "Option::is_none")]
     pub attributes: Option<Box<models::ArtistBiographiesAttributes>>,
