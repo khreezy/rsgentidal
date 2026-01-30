@@ -1,6 +1,6 @@
 [package]
 name = "prawn"
-version = "0.0.4"
+version = "0.1.0"
 authors = ["Kyle Hiller", "OpenAPI Generator team and contributors"]
 description = "Rust Client for the Tidal API providing comprehensive API coverag, and easy OAuth management"
 license = "MIT"

@@ -6,7 +6,10 @@ use std::vec::IntoIter;
 
 use crate::apis::configuration::Configuration;
 use crate::apis::{Api, ApiClient};
-use crate::auth_provider::{self, AccessTokenWithExpiry, AuthProvider, AuthProviderError};
+use crate::auth_provider::{
+    self, AccessTokenWithExpiry, AuthProvider, AuthProviderClientCredentials, AuthProviderError,
+    AuthProviderRefreshToken,
+};
 use chrono::{DateTime, Utc};
 use oauth2::basic::BasicTokenType;
 use oauth2::http::{Extensions, HeaderValue};
@@ -88,9 +91,11 @@ pub struct Token {
     /// Passed in API requests as Bearer token.
     pub access_token: String,
     /// Used to request new access_tokens after expiration has passed.
-    pub refresh_token: String,
+    pub refresh_token: Option<String>,
     /// RFC3339 string indicating the time that `access_token` expires.
     pub expiry: String,
+    /// Scopes granted by this token
+    pub scopes: Option<Vec<Scope>>,
 }
 
 impl From<StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>> for Token {
@@ -101,12 +106,13 @@ impl From<StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>> for Toke
 
         Token {
             access_token: value.access_token().clone().into_secret(),
-            refresh_token: value
-                .refresh_token()
-                .unwrap_or(&oauth2::RefreshToken::new(String::from("")))
-                .clone()
-                .into_secret(),
+            refresh_token: value.refresh_token().map_or(None, |v| -> Option<String> {
+                Some(v.clone().into_secret())
+            }),
             expiry: expiry.to_rfc3339(),
+            scopes: value
+                .scopes()
+                .map_or(None, |s| -> Option<Vec<Scope>> { Some(s.clone().to_vec()) }),
         }
     }
 }
@@ -137,7 +143,7 @@ pub struct OAuthConfig {
     pub client_secret: Option<String>,
 }
 
-type OAuthClient = oauth2::basic::BasicClient<
+pub type OAuthClient = oauth2::basic::BasicClient<
     EndpointSet,
     EndpointNotSet,
     EndpointNotSet,
@@ -146,45 +152,9 @@ type OAuthClient = oauth2::basic::BasicClient<
 >;
 
 struct AuthTokenRefreshMiddleware {
-    auth_provider: crate::auth_provider::AuthProvider,
     http_client: oauth2::reqwest::Client,
     oauth_client: OAuthClient,
-}
-
-impl AuthTokenRefreshMiddleware {
-    async fn refresh_access_token(&self) -> Result<AccessTokenWithExpiry> {
-        let refresh_token = self.auth_provider.get_refresh_token();
-
-        let maybe_token = self
-            .oauth_client
-            .exchange_refresh_token(&refresh_token)
-            .request_async(&self.http_client)
-            .await;
-
-        let token = match maybe_token {
-            Ok(t) => t,
-            Err(e) => {
-                return Err(TidalClientError {
-                    msg: String::from("failed to refresh token"),
-                    cause: e.to_string(),
-                })
-            }
-        };
-
-        let Some(expires_in) = token.expires_in() else {
-            return Err(TidalClientError {
-                msg: String::from("failed to refresh access token"),
-                cause: String::from("expires_in was missing"),
-            });
-        };
-
-        let expiry = Utc::now() + expires_in;
-
-        Ok(AccessTokenWithExpiry {
-            access_token: token.access_token().clone(),
-            expiry,
-        })
-    }
+    auth_provider: Box<dyn crate::auth_provider::AuthProvider + Send + Sync>,
 }
 
 #[async_trait::async_trait]
@@ -198,7 +168,11 @@ impl Middleware for AuthTokenRefreshMiddleware {
         let token = match self.auth_provider.get_access_token() {
             Ok(t) => t.into_secret(),
             Err(AuthProviderError::TokenExpiredError) => {
-                let token = match self.refresh_access_token().await {
+                let token = match self
+                    .auth_provider
+                    .refresh_access_token(&self.oauth_client, &self.http_client)
+                    .await
+                {
                     Ok(t) => t,
                     Err(e) => {
                         return Err(reqwest_middleware::Error::middleware(TidalClientError {
@@ -247,7 +221,7 @@ impl Middleware for AuthTokenRefreshMiddleware {
 struct RetryRateLimitsMiddleware {
     retries: u8,
     initial_backoff_duration: Duration,
-    backoff_fn: Box<dyn Fn(Duration, u8) -> () + Send + Sync + 'static>,
+    backoff_fn: Box<dyn Fn(Duration, u8) -> () + Send + Sync>,
 }
 
 fn default_backoff_fn(backoff_duration: Duration, retries: u8) -> () {
@@ -346,12 +320,21 @@ impl TidalClient {
         }
         .to_utc();
 
-        let auth_provider = AuthProvider {
-            access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
-                access_token: oauth2::AccessToken::new(auth_token.access_token),
-                expiry,
-            })),
-            refresh_token: oauth2::RefreshToken::new(auth_token.refresh_token),
+        let auth_provider: Box<dyn AuthProvider + Send + Sync> = match auth_token.refresh_token {
+            Some(r) => Box::new(AuthProviderRefreshToken {
+                access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
+                    access_token: oauth2::AccessToken::new(auth_token.access_token),
+                    expiry,
+                })),
+                refresh_token: oauth2::RefreshToken::new(r),
+            }),
+            None => Box::new(AuthProviderClientCredentials {
+                access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
+                    access_token: oauth2::AccessToken::new(auth_token.access_token),
+                    expiry,
+                })),
+                scopes: auth_token.scopes.unwrap_or(vec![].to_vec()),
+            }),
         };
 
         let refresh_middleware = AuthTokenRefreshMiddleware {
@@ -474,8 +457,9 @@ impl TidalClient {
     /// let scopes = vec!["user.read"];
     /// let token = Token {
     ///     access_token: String::from("[stored token]"),
-    ///     refresh_token: String::from("[stored refresh token]"),
-    ///     expiry:  String::from("[stored expiration info]")
+    ///     refresh_token: Some(String::from("[stored refresh token]")),
+    ///     expiry:  String::from("[stored expiration info]"),
+    ///     scopes: None // Only needed for refreshing client credentials flow
     /// };
     ///
     /// let config_with_token = TidalClientConfig {
@@ -776,27 +760,7 @@ impl TidalClient {
             }
         };
 
-        let Some(refresh_token) = token_resp.refresh_token() else {
-            return Err(TidalClientError {
-                msg: String::from("failed to exchange auth code"),
-                cause: String::from("response missing refresh token"),
-            });
-        };
-
-        let Some(expires_in) = token_resp.expires_in() else {
-            return Err(TidalClientError {
-                msg: String::from("failed to exchange auth code"),
-                cause: String::from("response missing expires_in"),
-            });
-        };
-
-        let expiry = Utc::now() + expires_in;
-
-        Ok(Token {
-            access_token: token_resp.access_token().clone().into_secret(),
-            refresh_token: refresh_token.clone().into_secret(),
-            expiry: expiry.to_rfc3339(),
-        })
+        Ok(token_resp.into())
     }
 }
 
@@ -941,14 +905,90 @@ mod tests {
             assert_eq!(resp.status(), StatusCode::OK);
             Ok(())
         }
+
+        #[tokio::test]
+        async fn test_retry_middleware_does_not_retry_on_400_and_returns_error(
+        ) -> std::result::Result<(), String> {
+            let expected_duration = Duration::from_millis(200);
+
+            let backoff_fn = |duration: Duration, _: u8| -> () {
+                assert_eq!(duration, Duration::from_millis(200));
+            };
+
+            let middleware = RetryRateLimitsMiddleware {
+                retries: 2,
+                initial_backoff_duration: expected_duration,
+                backoff_fn: Box::new(backoff_fn),
+            };
+
+            let http_client = reqwest::Client::new();
+
+            let middleware_client = reqwest_middleware::ClientBuilder::new(http_client)
+                .with(middleware)
+                .build();
+
+            let server = Server::run();
+
+            server.expect(
+                Expectation::matching(request::method("GET")).respond_with(status_code(400)),
+            );
+
+            let resp = middleware_client
+                .get(server.url_str(""))
+                .send()
+                .await
+                .expect("failed to make request");
+
+            assert_eq!(resp.status(), StatusCode::BAD_REQUEST);
+            Ok(())
+        }
+
+        #[tokio::test]
+        async fn test_retry_middleware_does_not_retry_on_500_and_returns_error(
+        ) -> std::result::Result<(), String> {
+            let expected_duration = Duration::from_millis(200);
+
+            let backoff_fn = |duration: Duration, _: u8| -> () {
+                assert_eq!(duration, Duration::from_millis(200));
+            };
+
+            let middleware = RetryRateLimitsMiddleware {
+                retries: 2,
+                initial_backoff_duration: expected_duration,
+                backoff_fn: Box::new(backoff_fn),
+            };
+
+            let http_client = reqwest::Client::new();
+
+            let middleware_client = reqwest_middleware::ClientBuilder::new(http_client)
+                .with(middleware)
+                .build();
+
+            let server = Server::run();
+
+            server.expect(
+                Expectation::matching(request::method("GET")).respond_with(status_code(500)),
+            );
+
+            let resp = middleware_client
+                .get(server.url_str(""))
+                .send()
+                .await
+                .expect("failed to make request");
+
+            assert_eq!(resp.status(), StatusCode::INTERNAL_SERVER_ERROR);
+            Ok(())
+        }
     }
 
     mod test_auth_refresh_middleware {
         use std::time::Duration;
 
+        use crate::auth_provider::AuthProviderRefreshToken;
+
         use super::*;
         use httptest::{matchers::*, responders::*, Expectation, Server};
-        use oauth2::AccessToken;
+        use oauth2::{AccessToken, ClientSecret};
         use reqwest::header::AUTHORIZATION;
 
         struct TestMiddleware {
@@ -1018,13 +1058,13 @@ mod tests {
             };
 
             let refresh_token = "refreshing!";
-            let auth_provider = AuthProvider {
+            let auth_provider = Box::new(AuthProviderRefreshToken {
                 access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
                     access_token: AccessToken::new("def456".to_string()),
                     expiry: Utc::now() - Duration::from_millis(1),
                 })),
                 refresh_token: RefreshToken::new(refresh_token.to_string()),
-            };
+            });
 
             let middleware = AuthTokenRefreshMiddleware {
                 oauth_client,
@@ -1064,6 +1104,101 @@ mod tests {
         }
 
         #[tokio::test]
+        async fn test_auth_refresh_middleware_refreshes_client_credentials(
+        ) -> std::result::Result<(), String> {
+            let server = Server::run();
+
+            let client_id = "1234567";
+            let client_secret = "45678";
+            let path = "/v1/oauth/token";
+            let token_url = TokenUrl::from_url(
+                Url::parse(server.url(path).to_string().as_str()).expect("failed to  parse url"),
+            );
+
+            let request_path = "/test";
+            server.expect(
+                Expectation::matching(all_of![
+                    request::method_path("POST", path),
+                    request::body(url_decoded(all_of![
+                        contains(("grant_type", "client_credentials")),
+                        contains(("scope", "user.read"))
+                    ])),
+                    request::headers(contains(("authorization", any())))
+                ])
+                .respond_with(status_code(200).body(
+                    r#"{
+                            "access_token": "abc123",
+                            "token_type": "Bearer",
+                            "expires_in": 86400,
+                            "scope": "user.read"
+                        }"#,
+                )),
+            );
+
+            server.expect(
+                Expectation::matching(request::method_path("GET", request_path))
+                    .respond_with(status_code(200)),
+            );
+            let oauth_client =
+                oauth2::basic::BasicClient::new(ClientId::new(client_id.to_string()))
+                    .set_client_secret(ClientSecret::new(client_secret.to_string()))
+                    .set_redirect_uri(RedirectUrl::from_url(
+                        Url::parse("https://example.com/callback").expect("failed to parse url"),
+                    ))
+                    .set_auth_uri(AuthUrl::from_url(
+                        Url::parse("https://example.com/authorize").expect("failed to parse url"),
+                    ))
+                    .set_token_uri(token_url);
+
+            let oauth_http_client = match oauth2::reqwest::ClientBuilder::new()
+                .redirect(oauth2::reqwest::redirect::Policy::none())
+                .build()
+            {
+                Ok(cb) => cb,
+                Err(e) => {
+                    panic!("failed to build oauth http client: {}", e)
+                }
+            };
+
+            let scopes: Vec<Scope> = vec![Scope::new("user.read".to_string())];
+
+            let auth_provider = Box::new(AuthProviderClientCredentials {
+                access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
+                    access_token: AccessToken::new("def456".to_string()),
+                    expiry: Utc::now() - Duration::from_millis(1),
+                })),
+                scopes,
+            });
+
+            let middleware = AuthTokenRefreshMiddleware {
+                oauth_client,
+                http_client: oauth_http_client,
+                auth_provider,
+            };
+
+            let test_middleware = TestMiddleware {
+                auth_header: "abc123".to_string(),
+            };
+
+            let http_client = reqwest::Client::new();
+
+            let client = reqwest_middleware::ClientBuilder::new(http_client)
+                .with(middleware)
+                .with(test_middleware)
+                .build();
+
+            _ = client
+                .get(
+                    Url::parse(server.url_str(request_path).as_str()).expect("failed to parse url"),
+                )
+                .send()
+                .await
+                .expect("oh no!");
+
+            Ok(())
+        }
+
+        #[tokio::test]
         async fn test_auth_refresh_middleware_does_not_refresh_unexpired_tokens(
         ) -> std::result::Result<(), String> {
             let server = Server::run();
@@ -1095,13 +1230,13 @@ mod tests {
             };
 
             let refresh_token = "refreshing!";
-            let auth_provider = AuthProvider {
+            let auth_provider = Box::new(AuthProviderRefreshToken {
                 access_token: Arc::new(RwLock::new(AccessTokenWithExpiry {
                     access_token: AccessToken::new("def456".to_string()),
                     expiry: Utc::now() + Duration::from_millis(86400),
                 })),
                 refresh_token: RefreshToken::new(refresh_token.to_string()),
-            };
+            });
 
             let middleware = AuthTokenRefreshMiddleware {
                 oauth_client,
